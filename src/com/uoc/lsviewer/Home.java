@@ -1,17 +1,17 @@
 package com.uoc.lsviewer;
 
-import android.app.Activity;
+import greendroid.app.GDActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-public class Home extends Activity{
+public class Home extends GDActivity{
 
 	private TextView tvUser;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.home);
+		setActionBarContentView(R.layout.home);
 		
 		tvUser = (TextView)findViewById(R.id.tvUser);
 		
