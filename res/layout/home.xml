@@ -13,25 +13,28 @@
 
     <TableLayout
         android:id="@+id/tableLayout1"
+        
+        android:paddingTop="100dp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" >
 
         <TableRow
             android:id="@+id/tableRow1"
+            android:gravity="center_vertical|center_horizontal" 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
 
             <Button
-                android:id="@+id/button1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Button" />
+                android:id="@+id/btnLlistat"
+                android:layout_width="150dp"
+                android:layout_height="100dp"
+                android:text="@string/btnLlistat" />
 
             <Button
-                android:id="@+id/button2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Button" />
+                android:id="@+id/btnMapa"
+                android:layout_width="150dp"
+                android:layout_height="100dp"
+                android:text="@string/btnMapa" />
 
         </TableRow>
 
@@ -43,20 +46,21 @@
 
         <TableRow
             android:id="@+id/tableRow3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" >
 
             <Button
-                android:id="@+id/button3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Button" />
+                android:id="@+id/btnQRCode"
+                android:layout_width="150dp"
+                android:layout_height="100dp"
+                android:text="@string/btnQRCode" />
 
             <Button
-                android:id="@+id/button4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Button" />
+                android:id="@+id/btnAjuda"
+                android:layout_width="150dp"
+                android:layout_height="100dp"
+                android:text="@string/btnAjuda" />
 
         </TableRow>
 

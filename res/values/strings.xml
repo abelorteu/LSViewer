@@ -5,5 +5,11 @@
     <string name="user">User</string>
     <string name="password">Password</string>    
     <string name="btnLogin">Sign in</string>
+
+    <string name="btnLlistat">List</string>
+    <string name="btnMapa">Map</string>
+    <string name="btnQRCode">QRCode</string>
+    <string name="btnAjuda">Help</string>
+    
     
 </resources>
