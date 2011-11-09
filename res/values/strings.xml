@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <string name="hello">Hello Android, LSViewerActivity_Prova4!</string>
-    <string name="app_name">LSViewer</string>
-
+    
+	<string name="app_name">LSViewer</string>
+    <string name="login">Login</string>
+    <string name="user">User</string>
+    <string name="password">Password</string>    
+    <string name="btnLogin">Sign in</string>
+    
 </resources>
