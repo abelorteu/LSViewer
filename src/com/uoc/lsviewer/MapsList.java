@@ -53,10 +53,13 @@ public class MapsList extends GDMapActivity {
 	        final MapView mapView = (MapView) findViewById(R.id.mapview);
 	        mapView.setBuiltInZoomControls(true);
 	        
+	        // Recogemos los puntos
+	        final OverlayItem[] sXarxes = getXarxes();
+	        //final OverlayItem[] items = sAreas[0];
+	        final OverlayItem[] items = sXarxes;
+	        
 	        // Pintamos los puntos
 	        final Resources r = getResources();
-	        
-	        final OverlayItem[] items = sAreas[0];
 	        
 	        int[][] states = new int[2][];
 	        int[] colors = new int[2];
@@ -77,13 +80,23 @@ public class MapsList extends GDMapActivity {
 
             mapView.getOverlays().add(itemizedOverlay);
             
-            
-            
+                        
 	 }
 	
 	@Override
 	protected boolean isRouteDisplayed() {	
 		return false;
+	}
+	
+	private OverlayItem[] getXarxes() {
+		
+		OverlayItem[] itemsXarxa = {				
+				new OverlayItem(new GeoPoint((int)(41.403531 * 1E6), (int)(2.174027 * 1E6)), "Sagrada Familia", null),
+				new OverlayItem(new GeoPoint((int)(41.375802 * 1E6), (int)(2.177782 * 1E6)), "Estatua de Colon", null),
+				new OverlayItem(new GeoPoint((int)(41.363991 * 1E6), (int)(2.157912 * 1E6)), "Montjuic" , null)
+		};		
+		
+		return itemsXarxa;
 	}
 	
 	private class BasicItemizedOverlay extends ItemizedOverlay<OverlayItem> {
