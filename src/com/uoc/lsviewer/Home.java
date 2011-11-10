@@ -39,7 +39,6 @@ public class Home extends GDActivity{
 			public void onClick(View v) {
 				Intent intent = new Intent(Home.this, MapsList.class);
 				
-					
 				startActivity(intent);
 				
 			}

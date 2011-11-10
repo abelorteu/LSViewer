@@ -7,6 +7,7 @@ import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.MapView;
 import com.google.android.maps.OverlayItem;
 
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -110,6 +111,13 @@ public class MapsList extends GDMapActivity {
 
         @Override
         protected boolean onTap(int index) {
+        	
+			Intent intent = new Intent(MapsList.this, SensorInfo.class);
+			Bundle bundle = new Bundle();
+			bundle.putInt("index", index);
+			intent.putExtras(bundle);
+			startActivity(intent);
+
             return true;
         }
 

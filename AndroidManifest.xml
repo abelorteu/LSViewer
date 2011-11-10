@@ -17,7 +17,7 @@
         
         <activity
             android:name=".Login" 
-            android:label="@string/app_Login">
+            android:label="@string/app_name">
             <intent-filter >
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -29,6 +29,9 @@
             android:label="@string/app_Home"/>
         <activity 
             android:name=".MapsList" 
-            android:label="@string/app_Maps"/>     
+            android:label="@string/app_Maps"/> 
+        <activity 
+            android:name=".SensorInfo" 
+            android:label="@string/app_SensorInfo"/>    
     </application>
 </manifest>
