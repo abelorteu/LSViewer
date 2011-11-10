@@ -12,7 +12,7 @@ public class GDActionBarApplication extends GDApplication {
 	 
 	@Override
 	public Intent getMainApplicationIntent() {
-	    return new Intent(Intent.ACTION_DEFAULT);
+	    return new Intent(Intent.ACTION_VIEW);
 	}
 	
 }

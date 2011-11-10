@@ -3,13 +3,19 @@ package com.uoc.lsviewer;
 import greendroid.app.GDActivity;
 import greendroid.widget.ActionBarItem;
 import greendroid.widget.ActionBarItem.Type;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class Home extends GDActivity{
 
 	private TextView tvUser;
+	private Button btnMapa;
+	
 	
 	private final int LOCATE = 0;
 	private final int REFRESH = 1;
@@ -21,10 +27,23 @@ public class Home extends GDActivity{
 		initActionBar();
 		
 		tvUser = (TextView)findViewById(R.id.tvUser);
+		btnMapa = (Button)findViewById(R.id.btnMapa);
 		
 		Bundle bundle = getIntent().getExtras();
 		
 		tvUser.setText("Hello " + bundle.getString("user"));
+		
+		btnMapa.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(Home.this, MapsList.class);
+				
+					
+				startActivity(intent);
+				
+			}
+		});
 		  
 	}
 	

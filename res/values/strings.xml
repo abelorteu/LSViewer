@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     
+    <string name="google_map_api_key_debug">0Q6y-3HjMma1ZzA449KDZtzResPtOHCqe512wpA</string>
+    
 	<string name="app_name">LSViewer</string>
+	<string name="app_Login">LSViewer - Login</string>
+	<string name="app_Home">LSViewer - Home</string>
+	<string name="app_Maps">LSViewer - Maps</string>
     <string name="user">User</string>
     <string name="password">Password</string>    
     <string name="btnLogin">Sign in</string>

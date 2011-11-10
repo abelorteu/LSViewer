@@ -12,20 +12,23 @@
         android:label="@string/app_name"        
         android:theme="@style/Theme.GDActionBar"  
         android:name="com.uoc.lsviewer.GDActionBarApplication">
+        
+        <uses-library android:name="com.google.android.maps"/>
+        
         <activity
-            android:label="@string/app_name"                                
-            android:name=".Login" >
+            android:name=".Login" 
+            android:label="@string/app_Login">
             <intent-filter >
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
         <activity 
-            android:label="@string/app_name"   
-            android:name=".Home" >
-        </activity>
-        <uses-library android:name="com.google.android.maps"/>
+            android:name=".Home" 
+            android:label="@string/app_Home"/>
+        <activity 
+            android:name=".MapsList" 
+            android:label="@string/app_Maps"/>     
     </application>
-
 </manifest>
