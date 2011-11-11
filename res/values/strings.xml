@@ -2,7 +2,7 @@
 <resources>
     
     <!--  Map Api Key -->
-    <string name="google_map_api_key_debug">0Q6y-3HjMma1ZzA449KDZtzResPtOHCqe512wpA</string>
+    <string name="google_map_api_key_debug">@values/keyMap</string>
     
     <!--  Apps Titles -->
 	<string name="app_name">LSViewer</string>

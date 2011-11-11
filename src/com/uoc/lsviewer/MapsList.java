@@ -30,8 +30,7 @@ public class MapsList extends GDMapActivity {
 	
 	private static final int[] PRESSED_STATE = {
 	        android.R.attr.state_pressed
-	    };
-	 
+	    };	 
 		
 	private static final OverlayItem[] sFrance = {
         new OverlayItem(new GeoPoint(48635600, -1510600), "Mont Saint Michel", null),
@@ -68,8 +67,7 @@ public class MapsList extends GDMapActivity {
 	        // Recogemos los puntos
 	        final OverlayItem[] sNet = getNet();	        
 	        drawPoints(sNet);
-	        controlMap.setZoom(13);
-	        
+	        controlMap.setZoom(13);        
 	        
                         
 	 }
@@ -98,15 +96,14 @@ public class MapsList extends GDMapActivity {
                 
         for (int j = 0; j < items.length; j++) {
             itemizedOverlay.addOverlay(items[j]);
-        }
+        }        
         
-        GeoPoint point =  itemizedOverlay.getCenter();
         mapView.getOverlays().clear();
         mapView.getOverlays().add(itemizedOverlay); 
         
-        controlMap.setCenter(point);
-        	
-        
+        // Recogemos el centro de los puntos y lo centramos
+        GeoPoint point =  itemizedOverlay.getCenter();
+        controlMap.animateTo(point);       
 
 	}
 	
@@ -159,14 +156,7 @@ public class MapsList extends GDMapActivity {
         @Override
         protected boolean onTap(int index) {
         	
-        	if (typeMap == 0) {
-        		
-        		/*OverlayItem item = mOverlays.get(index);
-        		AlertDialog.Builder dialog = new AlertDialog.Builder(context);
-        		dialog.setTitle(item.getTitle());
-        		//dialog.setMessage(item.getSnippet());
-        		dialog.show();*/
-
+        	if (typeMap == 0) {        		
         		final OverlayItem[] sSensors = getSensors(index);
         		drawPoints(sSensors);
         		controlMap.setZoom(16);
