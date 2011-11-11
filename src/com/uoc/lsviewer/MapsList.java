@@ -16,6 +16,7 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import greendroid.app.GDMapActivity;
 import greendroid.graphics.drawable.DrawableStateSet;
@@ -23,10 +24,11 @@ import greendroid.graphics.drawable.MapPinDrawable;
 
 public class MapsList extends GDMapActivity {
 	
+	private TextView tvName;
 	private MapView mapView;
 	private MapController controlMap = null;
 	private int typeMap = 0;
-	private Context context;
+	
 	
 	private static final int[] PRESSED_STATE = {
 	        android.R.attr.state_pressed
@@ -59,11 +61,13 @@ public class MapsList extends GDMapActivity {
 	        super.onCreate(savedInstanceState);
 	        setActionBarContentView(R.layout.mapslist);
 	        
+	        tvName = (TextView)findViewById(R.id.tvNom);
 	        mapView = (MapView) findViewById(R.id.mapview);
 	        mapView.setBuiltInZoomControls(true);
 	        
 	        controlMap = mapView.getController();
 	        	        
+	        tvName.setText("Net List");
 	        // Recogemos los puntos
 	        final OverlayItem[] sNet = getNet();	        
 	        drawPoints(sNet);
@@ -156,7 +160,8 @@ public class MapsList extends GDMapActivity {
         @Override
         protected boolean onTap(int index) {
         	
-        	if (typeMap == 0) {        		
+        	if (typeMap == 0) {   
+        		tvName.setText("Sensor List");
         		final OverlayItem[] sSensors = getSensors(index);
         		drawPoints(sSensors);
         		controlMap.setZoom(16);
