@@ -16,7 +16,7 @@ public class Home extends GDActivity{
 	private TextView tvUser;
 	private Button btnList;
 	private Button btnMapa;
-	
+	private Button btnQRCode;
 	
 	private final int LOCATE = 0;
 	private final int REFRESH = 1;
@@ -30,6 +30,7 @@ public class Home extends GDActivity{
 		tvUser = (TextView)findViewById(R.id.tvUser);
 		btnList = (Button)findViewById(R.id.btnList);
 		btnMapa = (Button)findViewById(R.id.btnMap);
+		btnQRCode = (Button)findViewById(R.id.btnQRCode);
 		
 		Bundle bundle = getIntent().getExtras();
 		
@@ -41,8 +42,7 @@ public class Home extends GDActivity{
 			public void onClick(View v) {
 				Intent intent = new Intent(Home.this, NetList.class);
 				
-				startActivity(intent);
-				
+				startActivity(intent);				
 			}
 		});
 		
@@ -52,11 +52,17 @@ public class Home extends GDActivity{
 			public void onClick(View v) {
 				Intent intent = new Intent(Home.this, MapsList.class);
 				
-				startActivity(intent);
-				
+				startActivity(intent);				
 			}
 		});
-		  
+		
+		btnQRCode.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				IntentIntegrator.initiateScan(Home.this);				
+			}
+		});		  
 	}
 	
 	private void initActionBar() {
@@ -87,5 +93,23 @@ public class Home extends GDActivity{
 		}
 	
 		return true;
+	}
+	
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		switch(requestCode) {
+		case IntentIntegrator.REQUEST_CODE: {
+			if (resultCode != RESULT_CANCELED) {
+				IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+				if (scanResult != null) {
+					String upc = scanResult.getContents();
+					//put whatever you want to do with the code here
+					TextView tv = new TextView(this);
+					tv.setText(upc);
+					setContentView(tv);
+				}
+			}
+			break;
+		}
+		}
 	}
 }
