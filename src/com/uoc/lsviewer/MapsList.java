@@ -4,9 +4,12 @@ import java.util.ArrayList;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.ItemizedOverlay;
+import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.OverlayItem;
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
@@ -21,13 +24,15 @@ import greendroid.graphics.drawable.MapPinDrawable;
 public class MapsList extends GDMapActivity {
 	
 	private MapView mapView;
+	private MapController controlMap = null;
+	private int typeMap = 0;
+	private Context context;
 	
-	 private static final int[] PRESSED_STATE = {
+	private static final int[] PRESSED_STATE = {
 	        android.R.attr.state_pressed
 	    };
 	 
-	private int typeMap = 0;
-	
+		
 	private static final OverlayItem[] sFrance = {
         new OverlayItem(new GeoPoint(48635600, -1510600), "Mont Saint Michel", null),
         new OverlayItem(new GeoPoint(48856700, 2351000), "Paris", null),
@@ -56,12 +61,15 @@ public class MapsList extends GDMapActivity {
 	        setActionBarContentView(R.layout.mapslist);
 	        
 	        mapView = (MapView) findViewById(R.id.mapview);
-	        mapView.setBuiltInZoomControls(true);	        
+	        mapView.setBuiltInZoomControls(true);
+	        
+	        controlMap = mapView.getController();
 	        	        
 	        // Recogemos los puntos
-	        final OverlayItem[] sNet = getNet();
-	        
+	        final OverlayItem[] sNet = getNet();	        
 	        drawPoints(sNet);
+	        controlMap.setZoom(13);
+	        
 	        
                         
 	 }
@@ -91,8 +99,14 @@ public class MapsList extends GDMapActivity {
         for (int j = 0; j < items.length; j++) {
             itemizedOverlay.addOverlay(items[j]);
         }
-
+        
+        GeoPoint point =  itemizedOverlay.getCenter();
+        mapView.getOverlays().clear();
         mapView.getOverlays().add(itemizedOverlay); 
+        
+        controlMap.setCenter(point);
+        	
+        
 
 	}
 	
@@ -146,8 +160,16 @@ public class MapsList extends GDMapActivity {
         protected boolean onTap(int index) {
         	
         	if (typeMap == 0) {
+        		
+        		/*OverlayItem item = mOverlays.get(index);
+        		AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+        		dialog.setTitle(item.getTitle());
+        		//dialog.setMessage(item.getSnippet());
+        		dialog.show();*/
+
         		final OverlayItem[] sSensors = getSensors(index);
         		drawPoints(sSensors);
+        		controlMap.setZoom(16);
         		typeMap = 1;
         		
         	} else {
