@@ -9,6 +9,7 @@
         android:id="@+id/tvUser"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        style="@style/labelStyles"
         android:text="User here" />
 
     <TableLayout
@@ -25,16 +26,16 @@
             android:layout_height="wrap_content" >
 
             <Button
-                android:id="@+id/btnLlistat"
+                android:id="@+id/btnList"
                 android:layout_width="150dp"
                 android:layout_height="100dp"
-                android:text="@string/btnLlistat" />
+                android:text="@string/btnList" />
 
             <Button
-                android:id="@+id/btnMapa"
+                android:id="@+id/btnMap"
                 android:layout_width="150dp"
                 android:layout_height="100dp"
-                android:text="@string/btnMapa" />
+                android:text="@string/btnMap" />
 
         </TableRow>
 
@@ -57,10 +58,10 @@
                 android:text="@string/btnQRCode" />
 
             <Button
-                android:id="@+id/btnAjuda"
+                android:id="@+id/btnHelp"
                 android:layout_width="150dp"
                 android:layout_height="100dp"
-                android:text="@string/btnAjuda" />
+                android:text="@string/btnHelp" />
 
         </TableRow>
 

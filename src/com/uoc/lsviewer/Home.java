@@ -14,6 +14,7 @@ import android.widget.Toast;
 public class Home extends GDActivity{
 
 	private TextView tvUser;
+	private Button btnList;
 	private Button btnMapa;
 	
 	
@@ -27,11 +28,23 @@ public class Home extends GDActivity{
 		initActionBar();
 		
 		tvUser = (TextView)findViewById(R.id.tvUser);
-		btnMapa = (Button)findViewById(R.id.btnMapa);
+		btnList = (Button)findViewById(R.id.btnList);
+		btnMapa = (Button)findViewById(R.id.btnMap);
 		
 		Bundle bundle = getIntent().getExtras();
 		
 		tvUser.setText("Hello " + bundle.getString("user"));
+		
+		btnList.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(Home.this, NetList.class);
+				
+				startActivity(intent);
+				
+			}
+		});
 		
 		btnMapa.setOnClickListener(new OnClickListener() {
 			

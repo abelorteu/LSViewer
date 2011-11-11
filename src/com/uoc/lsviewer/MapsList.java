@@ -13,15 +13,20 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+
 import greendroid.app.GDMapActivity;
 import greendroid.graphics.drawable.DrawableStateSet;
 import greendroid.graphics.drawable.MapPinDrawable;
 
 public class MapsList extends GDMapActivity {
 	
+	private MapView mapView;
+	
 	 private static final int[] PRESSED_STATE = {
 	        android.R.attr.state_pressed
 	    };
+	 
+	private int typeMap = 0;
 	
 	private static final OverlayItem[] sFrance = {
         new OverlayItem(new GeoPoint(48635600, -1510600), "Mont Saint Michel", null),
@@ -30,16 +35,16 @@ public class MapsList extends GDMapActivity {
         new OverlayItem(new GeoPoint(48593100, -647500), "Domfront", null)
     };
 	
-	 private static final OverlayItem[] sEurope = {
-	        new OverlayItem(new GeoPoint(55755800, 37617600), "Moscow", null),
-	        new OverlayItem(new GeoPoint(59332800, 18064500), "Stockholm", null),
-	        new OverlayItem(new GeoPoint(59939000, 30315800), "Saint Petersburg", null),
-	        new OverlayItem(new GeoPoint(60169800, 24938200), "Helsinki", null),
-	        new OverlayItem(new GeoPoint(60451400, 22268700), "Turku", null),
-	        new OverlayItem(new GeoPoint(65584200, 22154700), "Lule�", null),
-	        new OverlayItem(new GeoPoint(59438900, 24754500), "Talinn", null),
-	        new OverlayItem(new GeoPoint(66498700, 25721100), "Rovaniemi", null)
-	    };
+	private static final OverlayItem[] sEurope = {
+		new OverlayItem(new GeoPoint(55755800, 37617600), "Moscow", null),
+	    new OverlayItem(new GeoPoint(59332800, 18064500), "Stockholm", null),
+	    new OverlayItem(new GeoPoint(59939000, 30315800), "Saint Petersburg", null),
+	    new OverlayItem(new GeoPoint(60169800, 24938200), "Helsinki", null),
+	    new OverlayItem(new GeoPoint(60451400, 22268700), "Turku", null),
+	    new OverlayItem(new GeoPoint(65584200, 22154700), "Lulek", null),
+	    new OverlayItem(new GeoPoint(59438900, 24754500), "Talinn", null),
+	    new OverlayItem(new GeoPoint(66498700, 25721100), "Rovaniemi", null)
+	};
 	
 	private static final OverlayItem[][] sAreas = {
         sFrance, sEurope
@@ -50,36 +55,14 @@ public class MapsList extends GDMapActivity {
 	        super.onCreate(savedInstanceState);
 	        setActionBarContentView(R.layout.mapslist);
 	        
-	        final MapView mapView = (MapView) findViewById(R.id.mapview);
-	        mapView.setBuiltInZoomControls(true);
-	        
+	        mapView = (MapView) findViewById(R.id.mapview);
+	        mapView.setBuiltInZoomControls(true);	        
+	        	        
 	        // Recogemos los puntos
-	        final OverlayItem[] sXarxes = getXarxes();
-	        //final OverlayItem[] items = sAreas[0];
-	        final OverlayItem[] items = sXarxes;
+	        final OverlayItem[] sNet = getNet();
 	        
-	        // Pintamos los puntos
-	        final Resources r = getResources();
+	        drawPoints(sNet);
 	        
-	        int[][] states = new int[2][];
-	        int[] colors = new int[2];
-	        
-	        states[0] = PRESSED_STATE;
-	        colors[0] = Color.rgb(209, 208, 208);
-
-	        states[1] = DrawableStateSet.EMPTY_STATE_SET;
-	        colors[1] = Color.rgb(79, 76, 76);;
-	        
-	        ColorStateList pinCsl = new ColorStateList(states, colors);
-	        ColorStateList dotCsl = new ColorStateList(states, colors);
-	        BasicItemizedOverlay itemizedOverlay = new BasicItemizedOverlay(new MapPinDrawable(r, pinCsl, dotCsl));
-	        
-	        for (int j = 0; j < items.length; j++) {
-                itemizedOverlay.addOverlay(items[j]);
-            }
-
-            mapView.getOverlays().add(itemizedOverlay);
-            
                         
 	 }
 	
@@ -88,15 +71,52 @@ public class MapsList extends GDMapActivity {
 		return false;
 	}
 	
-	private OverlayItem[] getXarxes() {
+	private void drawPoints(OverlayItem[] items){
 		
-		OverlayItem[] itemsXarxa = {				
+        // Pintamos los puntos
+        final Resources r = getResources();	        
+        
+        // pinCsl
+        int[][] states = new int[2][];
+        int[] colors = new int[2];	        	        
+        states[0] = PRESSED_STATE;
+        colors[0] = Color.rgb(209, 208, 208);
+        states[1] = DrawableStateSet.EMPTY_STATE_SET;
+        colors[1] = Color.rgb(79, 76, 76);
+       	        
+        ColorStateList pinCsl = new ColorStateList(states, colors);
+        ColorStateList dotCsl = new ColorStateList(states, colors);
+        BasicItemizedOverlay itemizedOverlay = new BasicItemizedOverlay(new MapPinDrawable(r, pinCsl, dotCsl));
+                
+        for (int j = 0; j < items.length; j++) {
+            itemizedOverlay.addOverlay(items[j]);
+        }
+
+        mapView.getOverlays().add(itemizedOverlay); 
+
+	}
+	
+		
+	private OverlayItem[] getNet() {
+		
+		OverlayItem[] itemsNet = {				
 				new OverlayItem(new GeoPoint((int)(41.403531 * 1E6), (int)(2.174027 * 1E6)), "Sagrada Familia", null),
 				new OverlayItem(new GeoPoint((int)(41.375802 * 1E6), (int)(2.177782 * 1E6)), "Estatua de Colon", null),
 				new OverlayItem(new GeoPoint((int)(41.363991 * 1E6), (int)(2.157912 * 1E6)), "Montjuic" , null)
 		};		
 		
-		return itemsXarxa;
+		return itemsNet;
+	}
+	
+	private OverlayItem[] getSensors(int index) {
+		
+		OverlayItem[] itemsSensors = {				
+				new OverlayItem(new GeoPoint((int)(41.404135 * 1E6), (int)(2.174504 * 1E6)), "Point 1", null),
+				new OverlayItem(new GeoPoint((int)(41.40335 * 1E6), (int)(2.174805 * 1E6)), "Point 2", null),
+				new OverlayItem(new GeoPoint((int)(41.403274 * 1E6), (int)(2.174145 * 1E6)), "Point 3" , null)
+		};		
+		
+		return itemsSensors;
 	}
 	
 	private class BasicItemizedOverlay extends ItemizedOverlay<OverlayItem> {
@@ -125,14 +145,22 @@ public class MapsList extends GDMapActivity {
         @Override
         protected boolean onTap(int index) {
         	
-			Intent intent = new Intent(MapsList.this, SensorInfo.class);
-			Bundle bundle = new Bundle();
-			bundle.putInt("index", index);
-			intent.putExtras(bundle);
-			startActivity(intent);
+        	if (typeMap == 0) {
+        		final OverlayItem[] sSensors = getSensors(index);
+        		drawPoints(sSensors);
+        		typeMap = 1;
+        		
+        	} else {
+        		Intent intent = new Intent(MapsList.this, SensorInfo.class);
+        		Bundle bundle = new Bundle();
+        		bundle.putInt("index", index);
+        		intent.putExtras(bundle);
+        		startActivity(intent);
+        	}
 
             return true;
         }
+
 
     }
 

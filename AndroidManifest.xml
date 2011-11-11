@@ -27,11 +27,15 @@
         <activity 
             android:name=".Home" 
             android:label="@string/app_Home"/>
+     	<activity 
+            android:name=".NetList" 
+            android:label="@string/app_NetList"/>
         <activity 
             android:name=".MapsList" 
-            android:label="@string/app_Maps"/> 
+            android:label="@string/app_Maps"/>
         <activity 
             android:name=".SensorInfo" 
-            android:label="@string/app_SensorInfo"/>    
+            android:label="@string/app_SensorInfo"/>
+       
     </application>
 </manifest>

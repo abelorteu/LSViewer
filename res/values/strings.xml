@@ -9,6 +9,7 @@
 	<string name="app_Login">LSViewer - Login</string>
 	<string name="app_Home">LSViewer - Home</string>
 	<string name="app_Maps">LSViewer - Maps</string>
+	<string name="app_NetList">LSViewer - Net List </string>
 	<string name="app_SensorInfo">LSViewer - Sensor Info</string>
 	
 	<!--  Login Screen -->
@@ -17,10 +18,10 @@
     <string name="btnLogin">Sign in</string>
 
     <!--  Home Screen -->    
-    <string name="btnLlistat">List</string>
-    <string name="btnMapa">Map</string>
+    <string name="btnList">List</string>
+    <string name="btnMap">Map</string>
     <string name="btnQRCode">QRCode</string>
-    <string name="btnAjuda">Help</string>
+    <string name="btnHelp">Help</string>
     
     
 </resources>
