@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 public class Home extends GDActivity{
 
-	private TextView tvUser;
 	private Button btnList;
 	private Button btnMapa;
 	private Button btnQRCode;
@@ -27,14 +26,10 @@ public class Home extends GDActivity{
 		setActionBarContentView(R.layout.home);
 		initActionBar();
 		
-		tvUser = (TextView)findViewById(R.id.tvUser);
 		btnList = (Button)findViewById(R.id.btnList);
 		btnMapa = (Button)findViewById(R.id.btnMap);
 		btnQRCode = (Button)findViewById(R.id.btnQRCode);
 		
-		Bundle bundle = getIntent().getExtras();
-		
-		tvUser.setText("Hello " + bundle.getString("user"));
 		
 		btnList.setOnClickListener(new OnClickListener() {
 			

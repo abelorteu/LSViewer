@@ -1,32 +1,51 @@
 package com.uoc.lsviewer;
 
 import greendroid.app.GDActivity;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import android.os.Bundle;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
+
+//http://devblogs.net/2011/01/04/custom-listview-with-image-using-simpleadapter/
 public class NetList extends GDActivity {
-	private String Xarxes[]={"Sagrada Familia", "Estatua de Colon", "Montjuic"};	
+	//private String Xarxes[]={"Sagrada Familia", "Estatua de Colon", "Montjuic"};
+	// I use HashMap arraList which takes objects
+		private ArrayList <HashMap<String, Object>> Xarxa;
+		private static final String XarxaKEY = "NomXarxa";
+		private static final String NumKEY = "NumSensors";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setActionBarContentView(R.layout.netlist);
-        ListView Llista=(ListView) findViewById(R.id.Llista);
-        ArrayAdapter<String> adaptador = new ArrayAdapter<String>(this,
-        		android.R.layout.simple_list_item_1,Xarxes);
-        Llista.setAdapter(adaptador);
+		ListView listView = (ListView)findViewById(R.id.Llista);
+		Xarxa = new ArrayList<HashMap<String,Object>>();
+        HashMap<String, Object> hm;       
+       
+        //Afegim les dades
+        hm = new HashMap<String, Object>();
+        hm.put(XarxaKEY, "Sagrada Familia");
+        hm.put(NumKEY, "22 sensors");     
+        Xarxa.add(hm);
+        
+        hm = new HashMap<String, Object>();
+        hm.put(XarxaKEY, "Estatua de Colon");
+        hm.put(NumKEY, "10 sensors");        
+        Xarxa.add(hm);
+        
+        hm = new HashMap<String, Object>();
+        hm.put(XarxaKEY, "Montjuic");
+        hm.put(NumKEY, "14 sensors");        
+        Xarxa.add(hm);
 
-        Llista.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> padre, View v, int posicion,
-					long id) {
-				// TODO Auto-generated method stub
-				Toast.makeText(v.getContext(),padre.getItemAtPosition(posicion).toString() , Toast.LENGTH_SHORT).show();				
-			}
-		});		
+      // Define SimpleAdapter and Map the values with Row view R.layout.listbox
+       SimpleAdapter adapter = new SimpleAdapter(this, Xarxa, R.layout.listbox, 
+        		new String[]{XarxaKEY,NumKEY}, new int[]{R.id.text1, R.id.text2});
+       		
+        listView.setAdapter(adapter);
+        listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE); 
+			
     }
 }
