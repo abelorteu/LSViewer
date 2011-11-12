@@ -34,6 +34,9 @@
             android:name=".MapsList" 
             android:label="@string/app_Maps"/>
         <activity 
+            android:name=".QRCode" 
+            android:label="@string/app_QRCode"/>
+        <activity 
             android:name=".SensorInfo" 
             android:label="@string/app_SensorInfo"/>
        
