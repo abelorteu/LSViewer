@@ -37,8 +37,11 @@
             android:name=".QRCode" 
             android:label="@string/app_QRCode"/>
         <activity 
+            android:name=".SensorList" 
+            android:label="@string/app_SensorList"/>
+        <activity 
             android:name=".SensorInfo" 
-            android:label="@string/app_SensorInfo"/>
+            android:label="@string/app_SensorInfo"/>        
        
     </application>
 </manifest>

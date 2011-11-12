@@ -11,7 +11,9 @@
 	<string name="app_Maps">LSViewer - Maps</string>
 	<string name="app_NetList">LSViewer - Net List </string>
 	<string name="app_QRCode">LSViewer - QRCode </string>
+	<string name="app_SensorList">LSViewer - Sensor List</string>
 	<string name="app_SensorInfo">LSViewer - Sensor Info</string>
+	
 	
 	<!--  Login Screen -->
     <string name="user">User</string>
@@ -24,5 +26,8 @@
     <string name="btnQRCode">QRCode</string>
     <string name="btnHelp">Help</string>
     
-    
+    <!--  SensorList Screen -->  
+	<string name="IdSensor">Id</string>
+	<string name="NomSensor">Sensor</string>
+	<string name="TipusSensor">Type</string>
 </resources>

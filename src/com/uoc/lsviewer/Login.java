@@ -22,18 +22,17 @@ public class Login extends GDActivity {
         etUser = (EditText)findViewById(R.id.etUser);
         
         btnLogin = (Button)findViewById(R.id.btnLogin);
-        btnLogin.setOnClickListener(new OnClickListener() {
-			
-		@Override
-		public void onClick(View v) {
-			Intent intent = new Intent(Login.this, Home.class);
-				
-			Bundle bundle = new Bundle();
-			bundle.putString("user", etUser.getText().toString());
-			intent.putExtras(bundle);
-				
-			startActivity(intent);				
-		}
+        btnLogin.setOnClickListener(new OnClickListener() {			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(Login.this, Home.class);
+					
+				Bundle bundle = new Bundle();
+				bundle.putString("user", etUser.getText().toString());
+				intent.putExtras(bundle);
+					
+				startActivity(intent);				
+			}
 		});
     }
 }

@@ -5,13 +5,17 @@ import greendroid.app.GDActivity;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 //http://devblogs.net/2011/01/04/custom-listview-with-image-using-simpleadapter/
 public class NetList extends GDActivity {
-	//private String Xarxes[]={"Sagrada Familia", "Estatua de Colon", "Montjuic"};
 	// I use HashMap arraList which takes objects
 		private ArrayList <HashMap<String, Object>> Xarxa;
 		private static final String XarxaKEY = "NomXarxa";
@@ -45,7 +49,20 @@ public class NetList extends GDActivity {
         		new String[]{XarxaKEY,NumKEY}, new int[]{R.id.text1, R.id.text2});
        		
         listView.setAdapter(adapter);
-        listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE); 
+        listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+       
+        OnItemClickListener listener = new OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int position,long id) {
+            	TextView txt =(TextView)parent.getChildAt(position).findViewById(R.id.text1);
+            	//setTitle(parent.getItemAtPosition(position).toString());
+                Intent intent = new Intent(NetList.this, SensorList.class);	
+              	Bundle bundle = new Bundle();
+				bundle.putString("etXarxa", txt.getText().toString());
+				intent.putExtras(bundle);
+				startActivity(intent);
+            }
+          };
+          listView.setOnItemClickListener(listener);
 			
     }
 }

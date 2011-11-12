@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/greyWeak"
+    android:orientation="vertical" >
+ 	<TextView
+        android:id="@+id/tvNetInfo"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        style="@style/labelStyles"
+        android:text="Result here" /> 
+    <LinearLayout
+          android:id="@+id/linearLayout1"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content" >
+
+          <TextView
+              android:id="@+id/ID"
+              android:layout_width="50dp"
+              android:layout_height="wrap_content"
+              android:text="@string/IdSensor"
+              style="@style/labelStyles"
+              android:textSize="20dip" />
+
+          <TextView
+              android:id="@+id/NOM"
+              android:layout_width="200dp"
+              android:layout_height="wrap_content"
+              android:text="@string/NomSensor"
+              style="@style/labelStyles"
+              android:textSize="20dip" />
+
+          <TextView
+              android:id="@+id/TIPUS"
+              android:layout_width="70dp"
+              android:layout_height="wrap_content"
+              android:text="@string/TipusSensor"
+              style="@style/labelStyles"
+              android:textSize="20dip" />
+
+      </LinearLayout>   
+   <ListView  
+	    android:layout_width="fill_parent" 
+	    android:layout_height="fill_parent" 
+	    android:id="@+id/Llista"
+	    android:background="@color/greyStrong"
+    />
+</LinearLayout>
