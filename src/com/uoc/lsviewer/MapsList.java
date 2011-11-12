@@ -8,8 +8,6 @@ import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.OverlayItem;
 
-import android.app.AlertDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
@@ -27,12 +25,11 @@ public class MapsList extends GDMapActivity {
 	private TextView tvName;
 	private MapView mapView;
 	private MapController controlMap = null;
-	private int typeMap = 0;
-	
+	private int typeMap = 0;	
 	
 	private static final int[] PRESSED_STATE = {
 	        android.R.attr.state_pressed
-	    };	 
+	};	 
 		
 	private static final OverlayItem[] sFrance = {
         new OverlayItem(new GeoPoint(48635600, -1510600), "Mont Saint Michel", null),
@@ -71,8 +68,7 @@ public class MapsList extends GDMapActivity {
 	        // Recogemos los puntos
 	        final OverlayItem[] sNet = getNet();	        
 	        drawPoints(sNet);
-	        controlMap.setZoom(13);        
-	        
+	        controlMap.setZoom(13);              
                         
 	 }
 	
@@ -177,8 +173,5 @@ public class MapsList extends GDMapActivity {
 
             return true;
         }
-
-
     }
-
 }

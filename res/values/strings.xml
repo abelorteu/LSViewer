@@ -10,6 +10,7 @@
 	<string name="app_Home">LSViewer - Home</string>
 	<string name="app_Maps">LSViewer - Maps</string>
 	<string name="app_NetList">LSViewer - Net List </string>
+	<string name="app_QRCode">LSViewer - QRCode </string>
 	<string name="app_SensorInfo">LSViewer - Sensor Info</string>
 	
 	<!--  Login Screen -->
