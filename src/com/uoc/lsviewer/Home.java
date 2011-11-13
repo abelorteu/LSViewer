@@ -15,7 +15,7 @@ public class Home extends GDActivity{
 	private Button btnList;
 	private Button btnMapa;
 	private Button btnQRCode;
-	//private Button btnHelp;
+	private Button btnHelp;
 	
 	private final int LOCATE = 0;
 	private final int REFRESH = 1;
@@ -29,7 +29,7 @@ public class Home extends GDActivity{
 		btnList = (Button)findViewById(R.id.btnList);
 		btnMapa = (Button)findViewById(R.id.btnMap);
 		btnQRCode = (Button)findViewById(R.id.btnQRCode);
-		//btnHelp = (Button)findViewById(R.id.btnHelp);
+		btnHelp = (Button)findViewById(R.id.btnHelp);
 		
 		btnList.setOnClickListener(new OnClickListener() {
 			
@@ -61,8 +61,8 @@ public class Home extends GDActivity{
 				startActivity(intent);					
 			}
 		});	
-	/*	
-	   btnHelp.setOnClickListener(new OnClickListener() {
+		
+	    btnHelp.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -71,7 +71,7 @@ public class Home extends GDActivity{
 				startActivity(intent);					
 			}
 		});
-		*/	
+		
 	}
 	
 	private void initActionBar() {

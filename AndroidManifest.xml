@@ -42,6 +42,8 @@
         <activity 
             android:name=".SensorInfo" 
             android:label="@string/app_SensorInfo"/>        
-       
+       <activity 
+            android:name=".Help" 
+            android:label="@string/app_Help"/>    
     </application>
 </manifest>

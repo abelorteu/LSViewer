@@ -13,12 +13,14 @@
 	<string name="app_QRCode">LSViewer - QRCode </string>
 	<string name="app_SensorList">LSViewer - Sensor List</string>
 	<string name="app_SensorInfo">LSViewer - Sensor Info</string>
+	<string name="app_Help">LSViewer - Help</string>
 	
 	
 	<!--  Login Screen -->
     <string name="user">User</string>
     <string name="password">Password</string>    
     <string name="btnLogin">Sign in</string>
+    <string name="cbRemember">Remember password</string>
 
     <!--  Home Screen -->    
     <string name="btnList">List</string>
