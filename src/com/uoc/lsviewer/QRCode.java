@@ -27,10 +27,7 @@ public class QRCode extends GDActivity {
 				IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
 				if (scanResult != null) {
 					String upc = scanResult.getContents();
-					//put whatever you want to do with the code here
-					tvResult = new TextView(this);
-					tvResult.setText(upc);
-					setContentView(tvResult);
+					tvResult.setText("The result is: " + upc);
 				}
 			}
 			break;
