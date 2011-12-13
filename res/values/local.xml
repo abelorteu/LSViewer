@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- Google MAP API Key -->
+	<string name="google_map_api_key_debug">0Q6y-3HjMma1ZzA449KDZtzResPtOHCqe512wpA</string>
+	
+	<!-- ID Session (watch http://viuterrassa.com/Android/login.php?user=a&pass=a) -->
+    <string name="idSession">1323817200</string>
+    
+</resources>

@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    
-    <!--  Map Api Key -->
-    <string name="google_map_api_key_debug">@string/keyMap</string>
-    
+     
     <!--  Apps Titles -->
 	<string name="app_name">LSViewer</string>
 	<string name="app_Login">LSViewer - Login</string>
