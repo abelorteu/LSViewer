@@ -29,11 +29,11 @@
     <string name="btnHelp">Help</string>
     
     <!--  Menu Home Screen -->    
-    <string name="mOpcions">Opcions</string>
-    <string name="mSortir">Sortir</string>
-    <string name="mTancarSessio">Tancar sessio</string>
-    <string name="mDialogSortir">Estas segur que vols sortir?</string>
-    <string name="mDialogSortirSi">Si</string>
+    <string name="mOpcions">Options</string>
+    <string name="mSortir">Exit</string>
+    <string name="mTancarSessio">Logout</string>
+    <string name="mDialogSortir">Are you sure you want to exit?</string>
+    <string name="mDialogSortirSi">Yes</string>
     <string name="mDialogSortirNo">No</string>
     
     <!--  SensorList Screen -->  
