@@ -28,6 +28,14 @@
     <string name="btnQRCode">QRCode</string>
     <string name="btnHelp">Help</string>
     
+    <!--  Menu Home Screen -->    
+    <string name="mOpcions">Opcions</string>
+    <string name="mSortir">Sortir</string>
+    <string name="mTancarSessio">Tancar sessio</string>
+    <string name="mDialogSortir">Estas segur que vols sortir?</string>
+    <string name="mDialogSortirSi">Si</string>
+    <string name="mDialogSortirNo">No</string>
+    
     <!--  SensorList Screen -->  
 	<string name="IdSensor">Id</string>
 	<string name="NomSensor">Sensor</string>

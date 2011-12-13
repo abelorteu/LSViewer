@@ -25,13 +25,17 @@ public class Login extends GDActivity {
         btnLogin.setOnClickListener(new OnClickListener() {			
 			@Override
 			public void onClick(View v) {
+				
+				
+				
 				Intent intent = new Intent(Login.this, Home.class);
 					
 				Bundle bundle = new Bundle();
 				bundle.putString("user", etUser.getText().toString());
 				intent.putExtras(bundle);
 					
-				startActivity(intent);				
+				startActivity(intent);
+				finish();
 			}
 		});
     }

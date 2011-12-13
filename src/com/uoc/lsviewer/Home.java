@@ -3,8 +3,14 @@ package com.uoc.lsviewer;
 import greendroid.app.GDActivity;
 import greendroid.widget.ActionBarItem;
 import greendroid.widget.ActionBarItem.Type;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -19,6 +25,9 @@ public class Home extends GDActivity{
 	
 	private final int LOCATE = 0;
 	private final int REFRESH = 1;
+	
+	static final int DIALOG_EXIT = 0;
+
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -73,6 +82,51 @@ public class Home extends GDActivity{
 		});
 		
 	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+
+		MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.mhome, menu);
+	    return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    switch (item.getItemId()) {
+	        case R.id.m_opcions:
+	        	
+	            //lblMensaje.setText("Opcion 1 pulsada!");
+	            return true;
+	        case R.id.m_sortir:
+	            //lblMensaje.setText("Opcion 2 pulsada!");;
+	        	
+	        	AlertDialog.Builder builder = new AlertDialog.Builder(this);
+	        	builder.setMessage(R.string.mDialogSortir)
+	        	       .setCancelable(false)
+	        	       .setPositiveButton(R.string.mDialogSortirSi, new DialogInterface.OnClickListener() {
+	        	           public void onClick(DialogInterface dialog, int id) {
+	        	        	   Home.this.finish();
+	        	           }
+	        	       })
+	        	       .setNegativeButton(R.string.mDialogSortirNo, new DialogInterface.OnClickListener() {
+	        	           public void onClick(DialogInterface dialog, int id) {
+	        	                dialog.cancel();
+	        	           }
+	        	       });
+	        	AlertDialog alert = builder.create();	        	
+	        	alert.show();
+	        		        	
+	            return true;
+	        case R.id.m_tancar_sessio:
+	            //lblMensaje.setText("Opcion 3 pulsada!");;
+	            return true;
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
+	}
+	
+	
 	
 	private void initActionBar() {
 		
