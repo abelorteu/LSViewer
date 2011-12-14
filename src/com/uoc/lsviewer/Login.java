@@ -134,22 +134,29 @@ public class Login extends GDActivity {
         // Devolvemos todo lo leido
         return total;
     }
-    private String toMd5(String pass){
-        try{
-            //Creando Hash MD5
-            MessageDigest digest = MessageDigest.getInstance("MD5");
-            digest.update(pass.getBytes());
+    
+    public static final String toMd5(final String s) {
+        try {
+            // Create MD5 Hash
+            MessageDigest digest = java.security.MessageDigest
+                    .getInstance("MD5");
+            digest.update(s.getBytes());
             byte messageDigest[] = digest.digest();
-
-            //Creando Hex String
+     
+            // Create Hex String
             StringBuffer hexString = new StringBuffer();
-            for(int i=0; i<messageDigest.length; i++)
-                hexString.append(Integer.toHexString(0xFF & messageDigest[i]));
-            Log.w("Pass en MD5: ", hexString.toString());
+            for (int i = 0; i < messageDigest.length; i++) {
+                String h = Integer.toHexString(0xFF & messageDigest[i]);
+                while (h.length() < 2)
+                    h = "0" + h;
+                hexString.append(h);
+            }
             return hexString.toString();
-        }catch(NoSuchAlgorithmException ex){
-            Log.w("NoSuchAlgorithmException", ex.toString());
-            return null;
+     
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
         }
+        return "";
     }
+    
 }
