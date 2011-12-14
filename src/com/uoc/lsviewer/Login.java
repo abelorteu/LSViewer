@@ -53,42 +53,19 @@ public class Login extends GDActivity {
             	validar(etUser.getText().toString(), etPass.getText().toString());
             }
         });
-        
-        
-        /*
-        etUser = (EditText)findViewById(R.id.etUser);
-        
-        btnLogin = (Button)findViewById(R.id.btnLogin);
-        btnLogin.setOnClickListener(new OnClickListener() {			
-			@Override
-			public void onClick(View v) {
-				
-				
-				
-				Intent intent = new Intent(Login.this, Home.class);
-					
-				Bundle bundle = new Bundle();
-				bundle.putString("user", etUser.getText().toString());
-				intent.putExtras(bundle);
-					
-				startActivity(intent);
-				finish();
-			}
-		});*/
     }
     private boolean validar(String username, String pass){
     	String session;
+    	String Servidor= this.getResources().getString(R.string.Servidor);
         /* Comprobamos que no venga alguno en blanco. */
         if (!username.equals("") && !pass.equals("")){
             /* Creamos el objeto cliente que realiza la petición al servidor */
             HttpClient cliente = new DefaultHttpClient();
             /* Definimos la ruta al servidor. En mi caso, es un servlet. */
-            //HttpPost post = new HttpPost("http://192.168.0.142:8080/marcoWeb/Login");
-            HttpPost post = new HttpPost("http://192.168.0.195/Android/login.php");
+            HttpPost post = new HttpPost(Servidor+"login.php");
 
             try{
-                /* Defino los parámetros que enviaré. Primero el nombre del parámetro, seguido por el valor. Es lo mismo que hacer un
-                 http://192.168.0.142:8080/marcoWeb/Login?username=mario&pass=maritoPass&convertir=no */
+                /* Defino los parámetros que enviaré. Primero el nombre del parámetro, seguido por el valor.*/
                 List<NameValuePair> nvp = new ArrayList<NameValuePair>(2);
                 nvp.add(new BasicNameValuePair("user", username));
                 /* Encripto la contraseña en MD5. Definición más abajo */
@@ -104,7 +81,7 @@ public class Login extends GDActivity {
 		               /* Muestro la respuesta */
 		               session=job.getString("session");
 		               if(session.equals("0")){
-		            	   Toast.makeText(Login.this, "El usuari o la contrasenya són incorrectes!", Toast.LENGTH_LONG).show();
+		            	   Toast.makeText(Login.this, "L'usuari o la contrasenya són incorrectes!", Toast.LENGTH_LONG).show();
 		               }else{
 		            	   	Intent intent = new Intent(Login.this, Home.class);							
 			   				Bundle bundle = new Bundle();

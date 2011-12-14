@@ -36,7 +36,7 @@ public class NetList extends GDActivity {
 		private static final String nomKEY = "NomXarxa";
 		private static final String numKEY = "NumSensors";
 		
-		private String Servidor="http://viuterrassa.com/Android/";
+		private String Servidor=this.getResources().getString(R.string.Servidor);
 		InputStream is;
 		
 	@Override

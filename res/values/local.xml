@@ -6,4 +6,6 @@
 	<!-- ID Session (watch http://viuterrassa.com/Android/login.php?user=a&pass=a) -->
     <string name="idSession">1323817200</string>
     
+    <!-- Server http://viuterrassa.com/Android/ o http://192.168.0.195/Android/ -->
+    <string name="Servidor">http://192.168.0.195/Android/</string>
 </resources>
