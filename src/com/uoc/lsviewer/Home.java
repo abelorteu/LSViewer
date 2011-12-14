@@ -26,42 +26,59 @@ public class Home extends GDActivity{
 	private final int REFRESH = 1;
 	
 	static final int DIALOG_EXIT = 0;
-
 	
+	String session;
+	
+		
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setActionBarContentView(R.layout.home);
 		initActionBar();
-		Bundle bundle = getIntent().getExtras();
+		
 		btnList = (Button)findViewById(R.id.btnList);
 		btnMapa = (Button)findViewById(R.id.btnMap);
 		btnQRCode = (Button)findViewById(R.id.btnQRCode);
 		btnHelp = (Button)findViewById(R.id.btnHelp);
 		
+		Bundle bundle = getIntent().getExtras();
+		session = bundle.getString("session");		
 		
 		Toast.makeText(Home.this, bundle.getString("session"), Toast.LENGTH_LONG).show();
+		
+		// Llistat de xarxes
 		btnList.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(Home.this, NetList.class);
 				
+				// Id session
+				Bundle bundle = new Bundle();
+				bundle.putString("session", session);
+				intent.putExtras(bundle);
+				
 				startActivity(intent);				
 			}
 		});
 		
+		// Llistat de xarxes al mapa
 		btnMapa.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(Home.this, MapsList.class);
 				
+				// Id session
+				Bundle bundle = new Bundle();
+				bundle.putString("session", session);
+				intent.putExtras(bundle);
+				
 				startActivity(intent);				
 			}
 		});
 	
-		
+		// Llegir QRCode
 		btnQRCode.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -72,6 +89,7 @@ public class Home extends GDActivity{
 			}
 		});	
 		
+		// Ajuda
 	    btnHelp.setOnClickListener(new OnClickListener() {
 			
 			@Override

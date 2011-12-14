@@ -34,10 +34,12 @@ public class NetList extends GDActivity {
 		private ArrayList <HashMap<String, Object>> Xarxa;
 		private static final String idKEY = "IdXarxa";
 		private static final String nomKEY = "NomXarxa";
-		private static final String numKEY = "NumSensors";
+		private static final String numKEY = "NumSensors";	
 		
-		private String Servidor=this.getResources().getString(R.string.Servidor);
-		InputStream is;
+		InputStream is;		
+		String session;
+		ServerConnection sc;
+		
 		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +48,20 @@ public class NetList extends GDActivity {
 		
 		ListView listView = (ListView)findViewById(R.id.Llista);
 		
+		Bundle bundle = getIntent().getExtras();
+		session = bundle.getString("session");		
+		
+		sc = new ServerConnection(this, session, 0);		
+		is = sc.getConnection();
+		
 		// Server Connection
 		String result = "";		
-		try{
+		/*try{
              HttpClient httpclient = new DefaultHttpClient();
-             String server = Servidor + "getLlistatXarxes.php" + "?session=" + this.getResources().getString(R.string.idSession);
+             
+             //String Servidor = this.getResources().getString(R.string.Servidor);
+           String server = getResources().getString(R.string.Servidor) + "getLlistatXarxes.php" + "?session=" + session;
+            // String server = Servidor + "getLlistatXarxes.php" + "?session=1323903600";
              HttpPost httppost = new HttpPost(server);
             
              HttpResponse response = httpclient.execute(httppost); 
@@ -61,7 +72,7 @@ public class NetList extends GDActivity {
 		}catch(Exception e){
              Log.e("log_tag", "Error in http connection "+e.toString());
              Toast.makeText(getApplicationContext(), "fail", Toast.LENGTH_SHORT).show();
-		}
+		}*/
      
 		//convert response to string
 		try{

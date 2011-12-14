@@ -12,7 +12,6 @@
 	<string name="app_SensorInfo">LSViewer - Sensor Info</string>
 	<string name="app_Help">LSViewer - Help</string>
 	
-	
 	<!--  Login Screen -->
     <string name="user">User</string>
     <string name="password">Password</string>    
@@ -37,4 +36,6 @@
 	<string name="IdSensor">Id</string>
 	<string name="NomSensor">Sensor</string>
 	<string name="TipusSensor">Type</string>
+	
+
 </resources>
