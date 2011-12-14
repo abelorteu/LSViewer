@@ -24,6 +24,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -102,7 +103,17 @@ public class Login extends GDActivity {
 		               JSONObject job = new JSONObject(this.inputStreamToString(respuesta.getEntity().getContent()).toString());
 		               /* Muestro la respuesta */
 		               session=job.getString("session");
-		               Toast.makeText(Login.this, "Sessio: "+session, Toast.LENGTH_LONG).show();
+		               if(session.equals("0")){
+		            	   Toast.makeText(Login.this, "El usuari o la contrasenya són incorrectes!", Toast.LENGTH_LONG).show();
+		               }else{
+		            	   	Intent intent = new Intent(Login.this, Home.class);							
+			   				Bundle bundle = new Bundle();
+			   				bundle.putString("session", session);
+			   				intent.putExtras(bundle);
+			   					
+			   				startActivity(intent);
+			   				finish();
+		               }
 		               /* Abajo todas los exceptions que pueden ocurrir. Se imprimen en el log */
 		               return true;
 		           }catch(JSONException ex){
@@ -124,7 +135,7 @@ public class Login extends GDActivity {
                 return false;
             }
         }else{
-            Toast.makeText(Login.this, "Campo vacio!",Toast.LENGTH_LONG).show();
+            Toast.makeText(Login.this, "Has d'escriure un usuari i la seva contrasenya!",Toast.LENGTH_LONG).show();
             return false;
         }
     }

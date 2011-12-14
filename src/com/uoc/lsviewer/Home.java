@@ -4,7 +4,6 @@ import greendroid.app.GDActivity;
 import greendroid.widget.ActionBarItem;
 import greendroid.widget.ActionBarItem.Type;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -34,12 +33,14 @@ public class Home extends GDActivity{
 		super.onCreate(savedInstanceState);
 		setActionBarContentView(R.layout.home);
 		initActionBar();
-		
+		Bundle bundle = getIntent().getExtras();
 		btnList = (Button)findViewById(R.id.btnList);
 		btnMapa = (Button)findViewById(R.id.btnMap);
 		btnQRCode = (Button)findViewById(R.id.btnQRCode);
 		btnHelp = (Button)findViewById(R.id.btnHelp);
 		
+		
+		Toast.makeText(Home.this, bundle.getString("session"), Toast.LENGTH_LONG).show();
 		btnList.setOnClickListener(new OnClickListener() {
 			
 			@Override
