@@ -5,10 +5,16 @@ import greendroid.app.GDActivity;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class SensorList extends GDActivity{
 
@@ -20,61 +26,67 @@ public class SensorList extends GDActivity{
 	private static final String NomKEY = "SensorNom"; 
 	private static final String TipusKEY = "SensorTipus";
 	private static final String DescripcioKEY = "SensorDesc";
+	
+	ServerConnection sc;	
+	String session;
+	String idXarxa;
+	String nomXarxa;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setActionBarContentView(R.layout.sensorlist);
+		setActionBarContentView(R.layout.sensorlist);		
+
+	    ListView listView = (ListView)findViewById(R.id.Llista);	    
 		//Indiquem sobre quina xarxa estem treballant
-        tvNetInfo = (TextView)findViewById(R.id.tvNetInfo);	        
-        Bundle bundle = getIntent().getExtras();			
-	    tvNetInfo.setText(bundle.getString("etXarxa"));
+        tvNetInfo = (TextView)findViewById(R.id.tvNetInfo);
+        
+        Bundle bundle = getIntent().getExtras();		
+        session = bundle.getString("session");
+        idXarxa = bundle.getString("idXarxa");
+        nomXarxa = bundle.getString("nomXarxa");	
+        
+        tvNetInfo.setText(nomXarxa);	    
 	    
-	    ListView listView = (ListView)findViewById(R.id.Llista);
-	    Sensor = new ArrayList<HashMap<String,Object>>();
-        HashMap<String, Object> hm;       
-       
-        //Afegim les dades
-        hm = new HashMap<String, Object>();
-        hm.put(IdKEY, "1");
-        hm.put(NomKEY, "2003-ch.1");
-        hm.put(TipusKEY, R.drawable.bulo); 
-        hm.put(DescripcioKEY, "2003 sensors de tensió, canal 1"); 
-        Sensor.add(hm);
-
-        hm = new HashMap<String, Object>();
-        hm.put(IdKEY, "2");
-        hm.put(NomKEY, "2005-ch.1");
-        hm.put(TipusKEY, R.drawable.bulo); 
-        hm.put(DescripcioKEY, "2005 sensors de tensió, canal 1"); 
-        Sensor.add(hm);
-        
-        hm = new HashMap<String, Object>();
-        hm.put(IdKEY, "3");
-        hm.put(NomKEY, "2007-ch.1");
-        hm.put(TipusKEY, R.drawable.bulo); 
-        hm.put(DescripcioKEY, "2007 sensors de tensió, canal 1"); 
-        Sensor.add(hm);
-        
-        hm = new HashMap<String, Object>();
-        hm.put(IdKEY, "4");
-        hm.put(NomKEY, "2009-ch.1");
-        hm.put(TipusKEY, R.drawable.bulo); 
-        hm.put(DescripcioKEY, "2009 sensors de tensió, canal 1"); 
-        Sensor.add(hm);
-        
-        hm = new HashMap<String, Object>();
-        hm.put(IdKEY, "5");
-        hm.put(NomKEY, "2011-ch.1");
-        hm.put(TipusKEY, R.drawable.bulo); 
-        hm.put(DescripcioKEY, "2011 sensors de tensió, canal 1"); 
-        Sensor.add(hm);
-        
-        // Define SimpleAdapter and Map the values with Row view R.layout.listbox
-        SimpleAdapter adapter = new SimpleAdapter(this, Sensor, R.layout.listsensorbox, 
-         		new String[]{IdKEY, NomKEY, TipusKEY, DescripcioKEY}, new int[]{R.id.text1, R.id.text2, R.id.IMG, R.id.text4});
-        		
-         listView.setAdapter(adapter);
-         listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+	    // Server Connection and convert response to string 
+	    sc = new ServerConnection(this, 1);		
+		String aParams[] = {session, idXarxa};
+		String result = sc.getDataConnection(aParams);	
+	    	    
+		//parse json data	     
+	    try{
+	    	JSONArray jArray = new JSONArray(result);
+	        Sensor = new ArrayList<HashMap<String, Object>>();
+	        HashMap<String, Object> hm;
+	       
+	        for(int i = 0; i < jArray.length(); i++){	        	
+	               JSONObject json_data = jArray.getJSONObject(i);
+	               hm = new HashMap<String, Object>();
+	               hm.put(IdKEY, json_data.getString("id"));
+	               hm.put(NomKEY, json_data.getString("sensor") + " ch." + json_data.getString("canal"));
+	               hm.put(TipusKEY, R.drawable.bulo); 
+	               hm.put(DescripcioKEY, json_data.getString("Descripcio"));
+	               Sensor.add(hm);
+	               //http://p-xr.com/android-tutorial-how-to-parse-read-json-data-into-a-android-listview/
+              
+	              Toast.makeText(getApplicationContext(), "pass3", Toast.LENGTH_SHORT).show();
+	         }       	        
+	        
+	     // Define SimpleAdapter and Map the values with Row view R.layout.listbox
+	        SimpleAdapter adapter = new SimpleAdapter(
+	        		this, 
+	        		Sensor, 
+	        		R.layout.listsensorbox, 
+	         		new String[]{IdKEY, NomKEY, TipusKEY, DescripcioKEY}, 
+	         		new int[]{R.id.idSensor, R.id.nomSensor, R.id.IMG, R.id.descSensor}
+	        );
+	        	        		
+		    listView.setAdapter(adapter);
+		    listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+	       
+	    }catch(JSONException e){
+	    	Log.e("log_tag", "Error parsing data "+e.toString());
+	        Toast.makeText(getApplicationContext(), "fail3", Toast.LENGTH_SHORT).show();
+	    }
 	}
-
 }

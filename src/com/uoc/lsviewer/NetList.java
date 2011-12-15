@@ -8,11 +8,6 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,8 +33,7 @@ public class NetList extends GDActivity {
 		
 		InputStream is;		
 		String session;
-		ServerConnection sc;
-		
+		ServerConnection sc;		
 		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,48 +43,13 @@ public class NetList extends GDActivity {
 		ListView listView = (ListView)findViewById(R.id.Llista);
 		
 		Bundle bundle = getIntent().getExtras();
-		session = bundle.getString("session");		
+		session = bundle.getString("session");			
 		
-		sc = new ServerConnection(this, session, 0);		
-		is = sc.getConnection();
-		
-		// Server Connection
-		String result = "";		
-		/*try{
-             HttpClient httpclient = new DefaultHttpClient();
-             
-             //String Servidor = this.getResources().getString(R.string.Servidor);
-           String server = getResources().getString(R.string.Servidor) + "getLlistatXarxes.php" + "?session=" + session;
-            // String server = Servidor + "getLlistatXarxes.php" + "?session=1323903600";
-             HttpPost httppost = new HttpPost(server);
-            
-             HttpResponse response = httpclient.execute(httppost); 
-             HttpEntity entity = response.getEntity();
-             is = entity.getContent();
-             Log.e("log_tag", "connection success ");
-             Toast.makeText(getApplicationContext(), "pass1", Toast.LENGTH_SHORT).show();
-		}catch(Exception e){
-             Log.e("log_tag", "Error in http connection "+e.toString());
-             Toast.makeText(getApplicationContext(), "fail", Toast.LENGTH_SHORT).show();
-		}*/
-     
-		//convert response to string
-		try{
-             BufferedReader reader = new BufferedReader(new InputStreamReader(is,"iso-8859-1"),8);
-             StringBuilder sb = new StringBuilder();
-             String line = null;
-             while ((line = reader.readLine()) != null) {
-            	 sb.append(line + "\n");
-                 Toast.makeText(getApplicationContext(), "pass2", Toast.LENGTH_SHORT).show();
-             }
-             is.close();
-
-             result = sb.toString();
-		}catch(Exception e){
-            Log.e("log_tag", "Error converting result "+e.toString());
-            Toast.makeText(getApplicationContext(), "fail2", Toast.LENGTH_SHORT).show();
-		}
-
+		// Server Connection and convert response to string 
+		sc = new ServerConnection(this, 0);		
+		String aParams[] = {session};
+		String result = sc.getDataConnection(aParams);		
+		     		
 		//parse json data	     
 	    try{
 	    	JSONArray jArray = new JSONArray(result);
@@ -112,8 +71,8 @@ public class NetList extends GDActivity {
 		    		  this, 
 		    		  Xarxa, 
 		    		  R.layout.listbox, 
-		    		  new String[]{nomKEY, numKEY}, 
-		    		  new int[]{R.id.text1, R.id.text2}
+		    		  new String[]{idKEY, nomKEY, numKEY}, 
+		    		  new int[]{R.id.idXarxa, R.id.nomXarxa, R.id.numSensors}
 		      );	        		
 		      listView.setAdapter(adapter);
 		      listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
@@ -122,46 +81,22 @@ public class NetList extends GDActivity {
 	                Log.e("log_tag", "Error parsing data "+e.toString());
 	                Toast.makeText(getApplicationContext(), "fail3", Toast.LENGTH_SHORT).show();
 	        }
-		
-		
-	/*	Xarxa = new ArrayList<HashMap<String,Object>>();
-        HashMap<String, Object> hm;       
-       
-        //Afegim les dades
-        hm = new HashMap<String, Object>();
-        hm.put(XarxaKEY, "Sagrada Familia");
-        hm.put(NumKEY, "22 sensors");     
-        Xarxa.add(hm);
-        
-        hm = new HashMap<String, Object>();
-        hm.put(XarxaKEY, "Estatua de Colon");
-        hm.put(NumKEY, "10 sensors");        
-        Xarxa.add(hm);
-        
-        hm = new HashMap<String, Object>();
-        hm.put(XarxaKEY, "Montjuic");
-        hm.put(NumKEY, "14 sensors");        
-        Xarxa.add(hm);
-
-      // Define SimpleAdapter and Map the values with Row view R.layout.listbox
-       SimpleAdapter adapter = new SimpleAdapter(this, Xarxa, R.layout.listbox, 
-        		new String[]{XarxaKEY,NumKEY}, new int[]{R.id.text1, R.id.text2});
-       		
-        listView.setAdapter(adapter);
-        listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);*/
-       
+		              
         OnItemClickListener listener = new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position,long id) {
-            	TextView txt =(TextView)parent.getChildAt(position).findViewById(R.id.text1);
+            	TextView txt;
             	//setTitle(parent.getItemAtPosition(position).toString());
                 Intent intent = new Intent(NetList.this, SensorList.class);	
               	Bundle bundle = new Bundle();
-				bundle.putString("etXarxa", txt.getText().toString());
+              	bundle.putString("session", session);
+              	txt =(TextView)parent.getChildAt(position).findViewById(R.id.idXarxa);
+				bundle.putString("idXarxa", txt.getText().toString());
+				txt =(TextView)parent.getChildAt(position).findViewById(R.id.nomXarxa);
+				bundle.putString("nomXarxa", txt.getText().toString());
 				intent.putExtras(bundle);
 				startActivity(intent);
             }
           };
-          listView.setOnItemClickListener(listener);
-			
+          listView.setOnItemClickListener(listener);			
     }
 }

@@ -9,17 +9,26 @@
 	  android:orientation="vertical"
 	  android:layout_height="wrap_content">
 
+      <TextView
+	      android:id="@+id/idXarxa"
+	      android:layout_width="fill_parent"
+	      android:layout_height="wrap_content"
+	      android:text="Id de la xarxa"
+	      android:visibility="visible"
+	      android:textSize="20dip" />
+      
 	  <TextView
-	      android:id="@+id/text1"
+	      android:id="@+id/nomXarxa"
 	      android:layout_width="fill_parent"
 	      android:layout_height="wrap_content"
 	      android:text="Nom de la xarxa"
 	      android:textSize="20dip" />
 
-	  <TextView android:layout_width="fill_parent"
-	  android:layout_height="wrap_content"
-	  android:id="@+id/text2"
-	  android:textSize="14dip"
-	  android:text="Número de sensors"/>
+	  <TextView
+	      android:id="@+id/numSensors" 
+	      android:layout_width="fill_parent"
+	  	  android:layout_height="wrap_content"	  	
+	  	  android:text="Número de sensors"
+	  	  android:textSize="14dip"/>
   </LinearLayout>
 </LinearLayout>

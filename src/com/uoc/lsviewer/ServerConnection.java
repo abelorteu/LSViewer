@@ -1,6 +1,9 @@
 package com.uoc.lsviewer;
 
+import java.io.BufferedReader;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -21,29 +24,29 @@ public class ServerConnection {
 	InputStream is;	
 	int callType;
 	
-	public ServerConnection(Context cont, String idSession, int call) {		
+	
+	public ServerConnection(Context cont, int call) {		
 		context = cont;
 		res = context.getResources();
-		session = idSession;		
 		callType = call;
+				
 	}
 	
-	public InputStream getConnection () {
+	public String getDataConnection (String aParams[]) {
 		
-		String servidor = res.getString(R.string.Servidor);
-		
-		String con = "";
-		String params = "";	
+		String servidor = res.getString(R.string.Servidor);		
+		String con = "";	
 		String server = "";
+		String params = "";
+		
 		switch (callType) {
 		case 0:
 			con = context.getResources().getString(R.string.llistatXarxes);
-			params = "?session=" + session;
-			server = servidor + con + params;
+			params = "?session=" + aParams[0];
 			break;
 		case 1:
 			con = context.getResources().getString(R.string.llistatSensors);
-			
+			params = "?session=" + aParams[0] + "&IdXarxa=" + aParams[1];
 			break;
 		case 2:
 			con = context.getResources().getString(R.string.llistaImatges);
@@ -60,6 +63,7 @@ public class ServerConnection {
 		default:
 			break;
 		}
+		server = servidor + con + params;
 				
 		// Server Connection
 		try {
@@ -73,9 +77,32 @@ public class ServerConnection {
 		} catch(Exception e) {
              Log.e("log_tag", "Error in http connection "+e.toString());
              Toast.makeText(context.getApplicationContext(), "fail", Toast.LENGTH_SHORT).show();
-		}			
+		}		
 		
-		return is;
+		String result = responseToString();
+		return result;
 	}
+	
+	public String responseToString(){
+		
+		String result = "";		
+		//convert response to string
+		try{
+             BufferedReader reader = new BufferedReader(new InputStreamReader(is,"iso-8859-1"),8);
+             StringBuilder sb = new StringBuilder();
+             String line = null;
+             while ((line = reader.readLine()) != null) {
+            	 sb.append(line + "\n");
+                 Toast.makeText(context.getApplicationContext(), "pass2", Toast.LENGTH_SHORT).show();
+             }
+             is.close();
 
+             result = sb.toString();
+		}catch(Exception e){
+            Log.e("log_tag", "Error converting result "+e.toString());
+            Toast.makeText(context.getApplicationContext(), "fail2", Toast.LENGTH_SHORT).show();
+		}
+		
+		return result;
+	}
 }
