@@ -2,9 +2,6 @@ package com.uoc.lsviewer;
 
 import greendroid.app.GDActivity;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -31,7 +28,6 @@ public class NetList extends GDActivity {
 		private static final String nomKEY = "NomXarxa";
 		private static final String numKEY = "NumSensors";	
 		
-		InputStream is;		
 		String session;
 		ServerConnection sc;		
 		
@@ -77,10 +73,10 @@ public class NetList extends GDActivity {
 		      listView.setAdapter(adapter);
 		      listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 	       
-	        }catch(JSONException e){
-	                Log.e("log_tag", "Error parsing data "+e.toString());
-	                Toast.makeText(getApplicationContext(), "fail3", Toast.LENGTH_SHORT).show();
-	        }
+	    }catch(JSONException e){
+	    	Log.e("log_tag", "Error parsing data "+e.toString());
+	        Toast.makeText(getApplicationContext(), "fail3", Toast.LENGTH_SHORT).show();
+	    }
 		              
         OnItemClickListener listener = new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position,long id) {

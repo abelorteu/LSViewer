@@ -1,6 +1,11 @@
 package com.uoc.lsviewer;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.ItemizedOverlay;
@@ -14,7 +19,11 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import greendroid.app.GDMapActivity;
 import greendroid.graphics.drawable.DrawableStateSet;
@@ -25,38 +34,21 @@ public class MapsList extends GDMapActivity {
 	private TextView tvName;
 	private MapView mapView;
 	private MapController controlMap = null;
-	private int typeMap = 0;	
-	
+	private int typeMap = 0;
+	ServerConnection sc;	
+	BasicItemizedOverlay itemizedOverlay;
+		
 	private static final int[] PRESSED_STATE = {
 	        android.R.attr.state_pressed
 	};	 
 		
-	private static final OverlayItem[] sFrance = {
-        new OverlayItem(new GeoPoint(48635600, -1510600), "Mont Saint Michel", null),
-        new OverlayItem(new GeoPoint(48856700, 2351000), "Paris", null),
-        new OverlayItem(new GeoPoint(44837400, -576100), "Bordeaux", null),
-        new OverlayItem(new GeoPoint(48593100, -647500), "Domfront", null)
-    };
-	
-	private static final OverlayItem[] sEurope = {
-		new OverlayItem(new GeoPoint(55755800, 37617600), "Moscow", null),
-	    new OverlayItem(new GeoPoint(59332800, 18064500), "Stockholm", null),
-	    new OverlayItem(new GeoPoint(59939000, 30315800), "Saint Petersburg", null),
-	    new OverlayItem(new GeoPoint(60169800, 24938200), "Helsinki", null),
-	    new OverlayItem(new GeoPoint(60451400, 22268700), "Turku", null),
-	    new OverlayItem(new GeoPoint(65584200, 22154700), "Lulek", null),
-	    new OverlayItem(new GeoPoint(59438900, 24754500), "Talinn", null),
-	    new OverlayItem(new GeoPoint(66498700, 25721100), "Rovaniemi", null)
-	};
-	
-	private static final OverlayItem[][] sAreas = {
-        sFrance, sEurope
-    };
-
 	 @Override
 	 public void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);
 	        setActionBarContentView(R.layout.mapslist);
+	        
+	        Bundle bundle = getIntent().getExtras();
+	        String session = bundle.getString("session");	
 	        
 	        tvName = (TextView)findViewById(R.id.tvNom);
 	        mapView = (MapView) findViewById(R.id.mapview);
@@ -64,10 +56,49 @@ public class MapsList extends GDMapActivity {
 	        
 	        controlMap = mapView.getController();
 	        	        
-	        tvName.setText("Net List");
-	        // Recogemos los puntos
-	        final OverlayItem[] sNet = getNet();	        
-	        drawPoints(sNet);
+	        tvName.setText("Net List");	        
+	        
+	        // Server Connection and convert response to string 
+			sc = new ServerConnection(this, 0);		
+			String aParams[] = {session};
+			String result = sc.getDataConnection(aParams);		
+	        
+			// Recogemos los puntos			
+			//parse json data	     
+		    try{
+		    	
+		    	//[{"Poblacio":"Barcelona","Nom":"Sagrada Fam\u00c3\u00adlia","IdXarxa":"000","Sensors":"4","Lat":"41.403413","Lon":"2.173941"},{"Poblacio":"Barcelona","Nom":"Torre Agbar","IdXarxa":"001","Sensors":"16","Lat":"41.403702","Lon":"2.189503"},{"Poblacio":"Val\u00c3\u00a8ncia","Nom":"Passarel\u00c2\u00b7la de l'Exposici\u00c3\u00b3","IdXarxa":"002","Sensors":"18","Lat":"39,47322","Lon":"-0,36575"}]
+		    	
+		    	OverlayItem itemNet;
+		    	JSONArray jArray = new JSONArray(result);
+		    		        
+		    	prepareDraw();	    	
+		    	
+		        for(int i = 0; i < jArray.length(); i++){	        	
+		               JSONObject json_data = jArray.getJSONObject(i);
+		               		               
+		               itemNet = new OverlayItem(new GeoPoint((int)(json_data.getDouble("Lat") * 1E6), (int)(json_data.getDouble("Lon") * 1E6)), json_data.getString("Nom"), null);
+		               itemizedOverlay.addOverlay(itemNet);
+	            
+		              Toast.makeText(getApplicationContext(), "pass3", Toast.LENGTH_SHORT).show();
+		         }
+		       
+		     
+		        mapView.getOverlays().clear();
+		        mapView.getOverlays().add(itemizedOverlay);
+		        
+		        // Recogemos el centro de los puntos y lo centramos
+		        GeoPoint point =  itemizedOverlay.getCenter();
+		        controlMap.animateTo(point); 
+		       
+		    }catch(JSONException e){
+		    	Log.e("log_tag", "Error parsing data "+e.toString());
+		        Toast.makeText(getApplicationContext(), "fail3", Toast.LENGTH_SHORT).show();
+		    }
+				
+	        
+	        //final OverlayItem[] sNet = getNet(result);	        
+	        //drawPoints(sNet);
 	        controlMap.setZoom(13);              
                         
 	 }
@@ -77,9 +108,9 @@ public class MapsList extends GDMapActivity {
 		return false;
 	}
 	
-	private void drawPoints(OverlayItem[] items){
+	private void prepareDraw(){
 		
-        // Pintamos los puntos
+		 // Pintamos los puntos
         final Resources r = getResources();	        
         
         // pinCsl
@@ -92,32 +123,23 @@ public class MapsList extends GDMapActivity {
        	        
         ColorStateList pinCsl = new ColorStateList(states, colors);
         ColorStateList dotCsl = new ColorStateList(states, colors);
-        BasicItemizedOverlay itemizedOverlay = new BasicItemizedOverlay(new MapPinDrawable(r, pinCsl, dotCsl));
-                
-        for (int j = 0; j < items.length; j++) {
-            itemizedOverlay.addOverlay(items[j]);
-        }        
-        
-        mapView.getOverlays().clear();
-        mapView.getOverlays().add(itemizedOverlay); 
-        
-        // Recogemos el centro de los puntos y lo centramos
-        GeoPoint point =  itemizedOverlay.getCenter();
-        controlMap.animateTo(point);       
-
+        itemizedOverlay = new BasicItemizedOverlay(new MapPinDrawable(r, pinCsl, dotCsl));
+               		
 	}
 	
+	
 		
-	private OverlayItem[] getNet() {
-		
-		OverlayItem[] itemsNet = {				
+	/*private OverlayItem[] getNet(String result) {
+	
+		OverlayItem[] itemsNet = {			
 				new OverlayItem(new GeoPoint((int)(41.403531 * 1E6), (int)(2.174027 * 1E6)), "Sagrada Familia", null),
 				new OverlayItem(new GeoPoint((int)(41.375802 * 1E6), (int)(2.177782 * 1E6)), "Estatua de Colon", null),
 				new OverlayItem(new GeoPoint((int)(41.363991 * 1E6), (int)(2.157912 * 1E6)), "Montjuic" , null)
 		};		
 		
+		
 		return itemsNet;
-	}
+	}*/
 	
 	private OverlayItem[] getSensors(int index) {
 		
@@ -159,7 +181,7 @@ public class MapsList extends GDMapActivity {
         	if (typeMap == 0) {   
         		tvName.setText("Sensor List");
         		final OverlayItem[] sSensors = getSensors(index);
-        		drawPoints(sSensors);
+        		//drawPoints(sSensors);
         		controlMap.setZoom(16);
         		typeMap = 1;
         		
