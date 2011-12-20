@@ -1,7 +1,6 @@
 package com.uoc.lsviewer;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,8 +19,6 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +34,7 @@ public class MapsList extends GDMapActivity {
 	private int typeMap = 0;
 	ServerConnection sc;	
 	BasicItemizedOverlay itemizedOverlay;
+	String session;
 		
 	private static final int[] PRESSED_STATE = {
 	        android.R.attr.state_pressed
@@ -48,7 +46,7 @@ public class MapsList extends GDMapActivity {
 	        setActionBarContentView(R.layout.mapslist);
 	        
 	        Bundle bundle = getIntent().getExtras();
-	        String session = bundle.getString("session");	
+	        session = bundle.getString("session");	
 	        
 	        tvName = (TextView)findViewById(R.id.tvNom);
 	        mapView = (MapView) findViewById(R.id.mapview);
@@ -81,8 +79,7 @@ public class MapsList extends GDMapActivity {
 		               itemizedOverlay.addOverlay(itemNet);
 	            
 		              Toast.makeText(getApplicationContext(), "pass3", Toast.LENGTH_SHORT).show();
-		         }
-		       
+		         }	       
 		     
 		        mapView.getOverlays().clear();
 		        mapView.getOverlays().add(itemizedOverlay);
@@ -94,12 +91,9 @@ public class MapsList extends GDMapActivity {
 		    }catch(JSONException e){
 		    	Log.e("log_tag", "Error parsing data "+e.toString());
 		        Toast.makeText(getApplicationContext(), "fail3", Toast.LENGTH_SHORT).show();
-		    }
-				
+		    }			
 	        
-	        //final OverlayItem[] sNet = getNet(result);	        
-	        //drawPoints(sNet);
-	        controlMap.setZoom(13);              
+	        controlMap.setZoom(8);              
                         
 	 }
 	
@@ -127,19 +121,6 @@ public class MapsList extends GDMapActivity {
                		
 	}
 	
-	
-		
-	/*private OverlayItem[] getNet(String result) {
-	
-		OverlayItem[] itemsNet = {			
-				new OverlayItem(new GeoPoint((int)(41.403531 * 1E6), (int)(2.174027 * 1E6)), "Sagrada Familia", null),
-				new OverlayItem(new GeoPoint((int)(41.375802 * 1E6), (int)(2.177782 * 1E6)), "Estatua de Colon", null),
-				new OverlayItem(new GeoPoint((int)(41.363991 * 1E6), (int)(2.157912 * 1E6)), "Montjuic" , null)
-		};		
-		
-		
-		return itemsNet;
-	}*/
 	
 	private OverlayItem[] getSensors(int index) {
 		
@@ -179,11 +160,18 @@ public class MapsList extends GDMapActivity {
         protected boolean onTap(int index) {
         	
         	if (typeMap == 0) {   
-        		tvName.setText("Sensor List");
+        		Intent intent = new Intent(MapsList.this, ImagesGrid.class);
+        		Bundle bundle = new Bundle();
+        		bundle.putString("session", session);
+        		bundle.putInt("index", index);
+        		intent.putExtras(bundle);
+        		startActivity(intent);
+        		
+        		/*tvName.setText("Sensor List");
         		final OverlayItem[] sSensors = getSensors(index);
         		//drawPoints(sSensors);
         		controlMap.setZoom(16);
-        		typeMap = 1;
+        		typeMap = 1;*/
         		
         	} else {
         		Intent intent = new Intent(MapsList.this, SensorInfo.class);
