@@ -35,7 +35,21 @@
     <!--  SensorList Screen -->  
 	<string name="IdSensor">Id</string>
 	<string name="NomSensor">Sensor</string>
+	<string name="Chanel">Chanel</string>
 	<string name="TipusSensor">Type</string>
 	
+	<!--  SensorInfo Screen -->  
+	<string name="snNom">Nom: </string>
+	<string name="snPoblacio">Població: </string>
+	<string name="snDescripcio">Descripció: </string>
+	<string name="snSerialNumber">Número de sèrie: </string>
+	<string name="snSensor">Sensor: </string>
+	<string name="snSensorName">Nom del sensor: </string>
+	<string name="snMeasure">Valor: </string>
+	<string name="snMaxLoad">Valor màxim: </string>
+	<string name="snSensivity">Sensibilitat: </string>
+	<string name="snOffSet">OffSet: </string>
+	<string name="snAlarmAt">Alarma a: </string>
+	<string name="snLastTare">Última tara: </string>	
 
 </resources>

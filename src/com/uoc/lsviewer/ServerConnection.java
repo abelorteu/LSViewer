@@ -56,6 +56,7 @@ public class ServerConnection {
 			break;
 		case 4:
 			con = context.getResources().getString(R.string.sensorInfo);
+			params = "?session=" + aParams[0] + "&sensor=" + aParams[1];
 			break;
 		case 5:
 			con = context.getResources().getString(R.string.valorsGrafic);
@@ -73,7 +74,7 @@ public class ServerConnection {
              HttpEntity entity = response.getEntity();
              is = entity.getContent();
              Log.e("log_tag", "connection success ");
-             Toast.makeText(context.getApplicationContext(), "pass1", Toast.LENGTH_SHORT).show();
+            // Toast.makeText(context.getApplicationContext(), "pass1", Toast.LENGTH_SHORT).show();
 		} catch(Exception e) {
              Log.e("log_tag", "Error in http connection "+e.toString());
              Toast.makeText(context.getApplicationContext(), "fail", Toast.LENGTH_SHORT).show();
@@ -93,14 +94,14 @@ public class ServerConnection {
              String line = null;
              while ((line = reader.readLine()) != null) {
             	 sb.append(line + "\n");
-                 Toast.makeText(context.getApplicationContext(), "pass2", Toast.LENGTH_SHORT).show();
+                 //Toast.makeText(context.getApplicationContext(), "pass2", Toast.LENGTH_SHORT).show();
              }
              is.close();
 
              result = sb.toString();
 		}catch(Exception e){
             Log.e("log_tag", "Error converting result "+e.toString());
-            Toast.makeText(context.getApplicationContext(), "fail2", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(context.getApplicationContext(), "fail2", Toast.LENGTH_SHORT).show();
 		}
 		
 		return result;

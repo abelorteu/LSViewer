@@ -4,11 +4,167 @@
     android:layout_height="fill_parent"
     android:background="@color/greyWeak"
     android:orientation="vertical" >
-    <TextView 
-        android:id="@+id/tvSensorInfo"
-        android:text="Sensor info"
-        style="@style/labelStyles"/>
 
-    
+    	<TableLayout
+	    android:id="@+id/tableLayout1"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content" >
+
+	    <TableRow  android:id="@+id/tableRow1" android:layout_width="wrap_content" android:layout_height="wrap_content" >
+	        <TextView 
+		        android:id="@+id/Nom"
+		        android:text="@string/snNom"
+		        style="@style/labelStyles"/>
+	        <TextView
+	            android:id="@+id/txtNom"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Nom"
+	            style="@style/labelStyles" />
+	    </TableRow>
+	    
+		<TableRow  android:id="@+id/tableRow2" android:layout_width="wrap_content" android:layout_height="wrap_content" >
+	        <TextView 
+		        android:id="@+id/Poblacio"
+		        android:text="@string/snPoblacio"
+		        style="@style/labelStyles"/>
+	        <TextView
+	            android:id="@+id/txtPoblacio"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Poblacio"
+	            style="@style/labelStyles" />
+	    </TableRow>
+	    
+		<TableRow  android:id="@+id/tableRow3" android:layout_width="wrap_content" android:layout_height="wrap_content" >
+	        <TextView 
+		        android:id="@+id/Descripcio"
+		        android:text="@string/snDescripcio"
+		        style="@style/labelStyles"/>
+	        <TextView
+	            android:id="@+id/txtDescripcio"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Descripcio"
+	            style="@style/labelStyles" />
+	    </TableRow>
+	    
+		<TableRow  android:id="@+id/tableRow4" android:layout_width="wrap_content" android:layout_height="wrap_content" >
+	        <TextView 
+		        android:id="@+id/SerialNumber"
+		        android:text="@string/snSerialNumber"
+		        style="@style/labelStyles"/>
+	        <TextView
+	            android:id="@+id/txtSerialNumber"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="SerialNumber"
+	            style="@style/labelStyles" />
+	    </TableRow>
+	    
+		<TableRow  android:id="@+id/tableRow5" android:layout_width="wrap_content" android:layout_height="wrap_content" >
+	        <TextView 
+		        android:id="@+id/Sensor"
+		        android:text="@string/snSensor"
+		        style="@style/labelStyles"/>
+	        <TextView
+	            android:id="@+id/txtSensor"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Sensor"
+	            style="@style/labelStyles" />
+	    </TableRow>
+	    
+		<TableRow  android:id="@+id/tableRow6" android:layout_width="wrap_content" android:layout_height="wrap_content" >
+	        <TextView 
+		        android:id="@+id/SensorName"
+		        android:text="@string/snSensorName"
+		        style="@style/labelStyles"/>
+	        <TextView
+	            android:id="@+id/txtSensorName"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Sensor Name"
+	            style="@style/labelStyles" />
+	    </TableRow>
+	    
+		<TableRow  android:id="@+id/tableRow7" android:layout_width="wrap_content" android:layout_height="wrap_content" >
+	        <TextView 
+		        android:id="@+id/Measure"
+		        android:text="@string/snMeasure"
+		        style="@style/labelStyles"/>  
+	        <TextView
+	            android:id="@+id/txtMeasure"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Measure"
+	            style="@style/labelStyles" />
+	    </TableRow>
+	    
+		<TableRow  android:id="@+id/tableRow8" android:layout_width="wrap_content" android:layout_height="wrap_content" >
+	        <TextView 
+		        android:id="@+id/MaxLoad"
+		        android:text="@string/snMaxLoad"
+		        style="@style/labelStyles"/>
+	        <TextView
+	            android:id="@+id/txtMaxLoad"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Max Load"
+	            style="@style/labelStyles" />
+	    </TableRow>
+	    
+		<TableRow  android:id="@+id/tableRow9" android:layout_width="wrap_content" android:layout_height="wrap_content" >
+	        <TextView 
+		        android:id="@+id/Sensivity"
+		        android:text="@string/snSensivity"
+		        style="@style/labelStyles"/>
+	        <TextView
+	            android:id="@+id/txtSensivity"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Sensivity"
+	            style="@style/labelStyles" />
+	    </TableRow>
+	    
+		<TableRow  android:id="@+id/tableRow10" android:layout_width="wrap_content" android:layout_height="wrap_content" >
+	        <TextView 
+		        android:id="@+id/OffSet"
+		        android:text="@string/snOffSet"
+		        style="@style/labelStyles"/>
+	        <TextView
+	            android:id="@+id/txtOffSet"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Off Set"
+	            style="@style/labelStyles" />
+	    </TableRow>
+	    
+		<TableRow  android:id="@+id/tableRow11" android:layout_width="wrap_content" android:layout_height="wrap_content" >
+	        <TextView 
+		        android:id="@+id/AlarmAt"
+		        android:text="@string/snAlarmAt"
+		        style="@style/labelStyles"/>
+	        <TextView
+	            android:id="@+id/txtAlarmAt"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Alarm At"
+	            style="@style/labelStyles" />
+	    </TableRow>
+	    
+		<TableRow  android:id="@+id/tableRow12" android:layout_width="wrap_content" android:layout_height="wrap_content" >
+	        <TextView 
+		        android:id="@+id/LastTare"
+		        android:text="@string/snLastTare"
+		        style="@style/labelStyles"/>
+	        <TextView
+	            android:id="@+id/txtLastTare"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Last Tare"
+	            style="@style/labelStyles" />
+	    </TableRow>
+	</TableLayout>
 
 </LinearLayout>

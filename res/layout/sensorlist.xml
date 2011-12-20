@@ -30,7 +30,6 @@
               android:text="@string/NomSensor"
               style="@style/labelStyles"
               android:textSize="20dip" />
-
           <TextView
               android:id="@+id/TIPUS"
               android:layout_width="70dp"
