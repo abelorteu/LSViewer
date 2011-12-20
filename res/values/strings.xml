@@ -6,6 +6,7 @@
 	<string name="app_Login">LSViewer - Login</string>
 	<string name="app_Home">LSViewer - Home</string>
 	<string name="app_Maps">LSViewer - Maps</string>
+	<string name="app_Images">LSViewer - Images</string>
 	<string name="app_NetList">LSViewer - Net List </string>
 	<string name="app_QRCode">LSViewer - QRCode </string>
 	<string name="app_SensorList">LSViewer - Sensor List</string>
@@ -31,6 +32,9 @@
     <string name="mDialogSortir">Are you sure you want to exit?</string>
     <string name="mDialogSortirSi">Yes</string>
     <string name="mDialogSortirNo">No</string>
+    
+    <!--  ImagesList Screen -->  
+    <string name="selectImage">Select an image: </string>
     
     <!--  SensorList Screen -->  
 	<string name="IdSensor">Id</string>

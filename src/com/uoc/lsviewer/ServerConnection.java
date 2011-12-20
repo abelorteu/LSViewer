@@ -28,8 +28,7 @@ public class ServerConnection {
 	public ServerConnection(Context cont, int call) {		
 		context = cont;
 		res = context.getResources();
-		callType = call;
-				
+		callType = call;				
 	}
 	
 	public String getDataConnection (String aParams[]) {
@@ -50,6 +49,7 @@ public class ServerConnection {
 			break;
 		case 2:
 			con = context.getResources().getString(R.string.llistaImatges);
+			params = "?session=" + aParams[0] + "&IdXarxa=" + aParams[1];
 			break;
 		case 3:
 			con = context.getResources().getString(R.string.llistaSensorsImatges);
