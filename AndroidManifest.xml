@@ -34,7 +34,7 @@
             android:name=".MapsList" 
             android:label="@string/app_Maps"/>
          <activity 
-            android:name=".ImagesGrid" 
+            android:name=".ImagesXarxa" 
             android:label="@string/app_Images"/>
         <activity 
             android:name=".QRCode" 

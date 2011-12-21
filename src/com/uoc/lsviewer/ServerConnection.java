@@ -3,7 +3,6 @@ package com.uoc.lsviewer;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.reflect.Array;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -53,6 +52,7 @@ public class ServerConnection {
 			break;
 		case 3:
 			con = context.getResources().getString(R.string.llistaSensorsImatges);
+			params = "?session=" + aParams[0] + "&IdImatge=" + aParams[1];
 			break;
 		case 4:
 			con = context.getResources().getString(R.string.sensorInfo);

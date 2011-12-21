@@ -6,8 +6,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.google.android.maps.OverlayItem;
-
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
@@ -17,12 +15,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import greendroid.app.GDActivity;
 
-public class ImagesGrid extends GDActivity implements OnItemClickListener, OnClickListener {
+public class ImagesXarxa extends GDActivity implements OnItemClickListener, OnClickListener {
 	
 	//http://androideity.com/2011/08/28/controles-de-seleccion-en-android-gridview/
 	//http://pablithiu-blog.blogspot.com/2010/01/importando-imagenes-en-android.html
@@ -67,9 +64,7 @@ public class ImagesGrid extends GDActivity implements OnItemClickListener, OnCli
 	    }catch(JSONException e){
 	    	Log.e("log_tag", "Error parsing data "+e.toString());
 	        Toast.makeText(getApplicationContext(), "fail3", Toast.LENGTH_SHORT).show();
-	    }	
-				
-		
+	    }		
 		
 		// get data generated before a config change, if it exists
 		final Object data = getLastNonConfigurationInstance();
@@ -94,6 +89,12 @@ public class ImagesGrid extends GDActivity implements OnItemClickListener, OnCli
 	public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 
 		openPage((String) adapter.getItem(position));
+		
+		/*Intent intent = new Intent(MapsList.this, SensorInfo.class);
+		Bundle bundle = new Bundle();
+		bundle.putInt("index", index);
+		intent.putExtras(bundle);
+		startActivity(intent);*/
 	}
 
 

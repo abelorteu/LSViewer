@@ -31,7 +31,6 @@ public class MapsList extends GDMapActivity {
 	private TextView tvName;
 	private MapView mapView;
 	private MapController controlMap = null;
-	private int typeMap = 0;
 	ServerConnection sc;	
 	BasicItemizedOverlay itemizedOverlay;
 	String session;
@@ -121,18 +120,6 @@ public class MapsList extends GDMapActivity {
                		
 	}
 	
-	
-	private OverlayItem[] getSensors(int index) {
-		
-		OverlayItem[] itemsSensors = {				
-				new OverlayItem(new GeoPoint((int)(41.404135 * 1E6), (int)(2.174504 * 1E6)), "Point 1", null),
-				new OverlayItem(new GeoPoint((int)(41.40335 * 1E6), (int)(2.174805 * 1E6)), "Point 2", null),
-				new OverlayItem(new GeoPoint((int)(41.403274 * 1E6), (int)(2.174145 * 1E6)), "Point 3" , null)
-		};		
-		
-		return itemsSensors;
-	}
-	
 	private class BasicItemizedOverlay extends ItemizedOverlay<OverlayItem> {
 
         private ArrayList<OverlayItem> mOverlays = new ArrayList<OverlayItem>();
@@ -159,28 +146,13 @@ public class MapsList extends GDMapActivity {
         @Override
         protected boolean onTap(int index) {
         	
-        	if (typeMap == 0) {   
-        		Intent intent = new Intent(MapsList.this, ImagesGrid.class);
-        		Bundle bundle = new Bundle();
-        		bundle.putString("session", session);
-        		bundle.putInt("index", index);
-        		intent.putExtras(bundle);
-        		startActivity(intent);
+       		Intent intent = new Intent(MapsList.this, ImagesXarxa.class);
+       		Bundle bundle = new Bundle();
+       		bundle.putString("session", session);
+       		bundle.putInt("index", index);
+       		intent.putExtras(bundle);
+       		startActivity(intent);
         		
-        		/*tvName.setText("Sensor List");
-        		final OverlayItem[] sSensors = getSensors(index);
-        		//drawPoints(sSensors);
-        		controlMap.setZoom(16);
-        		typeMap = 1;*/
-        		
-        	} else {
-        		Intent intent = new Intent(MapsList.this, SensorInfo.class);
-        		Bundle bundle = new Bundle();
-        		bundle.putInt("index", index);
-        		intent.putExtras(bundle);
-        		startActivity(intent);
-        	}
-
             return true;
         }
     }
