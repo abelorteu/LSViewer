@@ -146,7 +146,7 @@ public class MapsList extends GDMapActivity {
         @Override
         protected boolean onTap(int index) {
         	
-       		Intent intent = new Intent(MapsList.this, ImagesXarxa.class);
+       		Intent intent = new Intent(MapsList.this, ImagesNet.class);
        		Bundle bundle = new Bundle();
        		bundle.putString("session", session);
        		bundle.putInt("index", index);

@@ -19,7 +19,7 @@ import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import greendroid.app.GDActivity;
 
-public class ImagesXarxa extends GDActivity implements OnItemClickListener, OnClickListener {
+public class ImagesNet extends GDActivity implements OnItemClickListener, OnClickListener {
 	
 	//http://androideity.com/2011/08/28/controles-de-seleccion-en-android-gridview/
 	//http://pablithiu-blog.blogspot.com/2010/01/importando-imagenes-en-android.html
@@ -28,19 +28,21 @@ public class ImagesXarxa extends GDActivity implements OnItemClickListener, OnCl
 	private URLImageAdapter adapter;
 	ServerConnection sc;
 	private String[] imageURLs;
+	private String session;
+	private Integer idXarxa;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setActionBarContentView(R.layout.imagesgrid);
+		setActionBarContentView(R.layout.imagesnet);
 		
 		Bundle bundle = getIntent().getExtras();
-        String session = bundle.getString("session");
-        Integer IdXarxa = bundle.getInt("index");
+        session = bundle.getString("session");
+        idXarxa = bundle.getInt("index");
 		
 		 // Server Connection and convert response to string 
 		sc = new ServerConnection(this, 2);		
-		String aParams[] = {session, IdXarxa.toString()};
+		String aParams[] = {session, idXarxa.toString()};
 		String result = sc.getDataConnection(aParams);
 		
 		ArrayList<String> images = new ArrayList<String>();
@@ -88,13 +90,16 @@ public class ImagesXarxa extends GDActivity implements OnItemClickListener, OnCl
 	 */
 	public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 
-		openPage((String) adapter.getItem(position));
+		//openPage((String) adapter.getItem(position));
 		
-		/*Intent intent = new Intent(MapsList.this, SensorInfo.class);
+		String urlIMG = (String) adapter.getItem(position);
+		Intent intent = new Intent(ImagesNet.this, ImageSensors.class);
 		Bundle bundle = new Bundle();
-		bundle.putInt("index", index);
+		bundle.putString("session", session);
+		bundle.putInt("index", idXarxa);
+		bundle.putString("url", urlIMG);
 		intent.putExtras(bundle);
-		startActivity(intent);*/
+		startActivity(intent);
 	}
 
 

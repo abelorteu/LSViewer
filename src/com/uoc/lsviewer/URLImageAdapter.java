@@ -37,6 +37,7 @@ public class URLImageAdapter extends BaseAdapter {
 	
 	// URL images array
 	private String[] imageURLs;
+	
 
 	// Constructor
 	public URLImageAdapter(Context c, Object previousList, String[] iURLs) {
@@ -44,7 +45,7 @@ public class URLImageAdapter extends BaseAdapter {
 		myContext = c;
 		
 		imageURLs = iURLs;
-
+		
 		// get our thumbnail generation task ready to execute
 		thumbnailGen = new LoadThumbsTask();
 		
