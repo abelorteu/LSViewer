@@ -259,45 +259,4 @@ public class URLImageAdapter extends BaseAdapter {
 			cacheUpdated();
 		}
 	}
-	
-	
-	// all images from: http://danallan.net
-	/*private String[] imageURLs = {
-			"http://cdn.cs76.net/2011/spring/lectures/6/imgs/img_2851.jpg",
-			"http://cdn.cs76.net/2011/spring/lectures/6/imgs/img_2944.jpg",
-			"http://cdn.cs76.net/2011/spring/lectures/6/imgs/img_2989.jpg",
-			"http://cdn.cs76.net/2011/spring/lectures/6/imgs/img_3005.jpg",
-			"http://cdn.cs76.net/2011/spring/lectures/6/imgs/img_3012.jpg",
-			"http://cdn.cs76.net/2011/spring/lectures/6/imgs/img_3034.jpg",
-			"http://cdn.cs76.net/2011/spring/lectures/6/imgs/img_3047.jpg",
-			"http://cdn.cs76.net/2011/spring/lectures/6/imgs/img_3092.jpg",
-			"http://cdn.cs76.net/2011/spring/lectures/6/imgs/img_3110.jpg",
-			"http://cdn.cs76.net/2011/spring/lectures/6/imgs/img_3113.jpg",
-			"http://cdn.cs76.net/2011/spring/lectures/6/imgs/img_3128.jpg",
-			"http://cdn.cs76.net/2011/spring/lectures/6/imgs/img_3160.jpg",
-			"http://cdn.cs76.net/2011/spring/lectures/6/imgs/img_3226.jpg",
-			"http://cdn.cs76.net/2011/spring/lectures/6/imgs/img_3228.jpg",
-			"http://cdn.cs76.net/2011/spring/lectures/6/imgs/img_3251.jpg",
-			"http://cdn.cs76.net/2011/spring/lectures/6/imgs/img_3268.jpg",
-			"http://cdn.cs76.net/2011/spring/lectures/6/imgs/img_3275.jpg",
-			"http://cdn.cs76.net/2011/spring/lectures/6/imgs/img_3346.jpg",
-			"http://cdn.cs76.net/2011/spring/lectures/6/imgs/img_3365.jpg",
-			"http://cdn.cs76.net/2011/spring/lectures/6/imgs/img_3374.jpg",
-			"http://cdn.cs76.net/2011/spring/lectures/6/imgs/img_3385.jpg",
-			"http://cdn.cs76.net/2011/spring/lectures/6/imgs/img_3392.jpg",
-			"http://cdn.cs76.net/2011/spring/lectures/6/imgs/img_3397.jpg",
-			"http://cdn.cs76.net/2011/spring/lectures/6/imgs/img_3398.jpg",
-			"http://cdn.cs76.net/2011/spring/lectures/6/imgs/img_3403.jpg",
-			"http://cdn.cs76.net/2011/spring/lectures/6/imgs/img_3424.jpg",
-			"http://cdn.cs76.net/2011/spring/lectures/6/imgs/img_3432.jpg",
-			"http://cdn.cs76.net/2011/spring/lectures/6/imgs/img_3448.jpg",
-			"http://cdn.cs76.net/2011/spring/lectures/6/imgs/img_3452.jpg",
-			"http://cdn.cs76.net/2011/spring/lectures/6/imgs/img_3484.jpg",
-			"http://cdn.cs76.net/2011/spring/lectures/6/imgs/img_3487.jpg",
-			"http://cdn.cs76.net/2011/spring/lectures/6/imgs/img_3494.jpg",
-			"http://cdn.cs76.net/2011/spring/lectures/6/imgs/img_3576.jpg",
-			"http://cdn.cs76.net/2011/spring/lectures/6/imgs/img_3597.jpg",
-			"http://cdn.cs76.net/2011/spring/lectures/6/imgs/img_3599.jpg",
-			"http://cdn.cs76.net/2011/spring/lectures/6/imgs/img_3610.jpg"
-	};*/
 }

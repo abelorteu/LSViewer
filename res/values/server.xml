@@ -7,7 +7,7 @@
 	<string name="llistatXarxes">getLlistatXarxes.php</string>
 	<string name="llistatSensors">getLlistaSensors.php</string>
 	<string name="llistaImatges">getLlistaImatges.php</string>
-	<string name="llistaSensorsImatges">getLlistaSensorsImatges.php</string>
+	<string name="llistaSensorsImatge">getLlistaSensorsImatges.php</string>
 	<string name="sensorInfo">getSensorInfo.php</string>
 	<string name="valorsGrafic">getValorsGrafic.php</string>
     

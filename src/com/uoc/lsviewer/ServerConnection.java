@@ -51,7 +51,7 @@ public class ServerConnection {
 			params = "?session=" + aParams[0] + "&IdXarxa=" + aParams[1];
 			break;
 		case 3:
-			con = context.getResources().getString(R.string.llistaSensorsImatges);
+			con = context.getResources().getString(R.string.llistaSensorsImatge);
 			params = "?session=" + aParams[0] + "&IdImatge=" + aParams[1];
 			break;
 		case 4:

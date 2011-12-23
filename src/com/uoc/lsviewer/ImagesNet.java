@@ -28,6 +28,7 @@ public class ImagesNet extends GDActivity implements OnItemClickListener, OnClic
 	private URLImageAdapter adapter;
 	ServerConnection sc;
 	private String[] imageURLs;
+	private String[] idIMG;
 	private String session;
 	private Integer idXarxa;
 	
@@ -46,6 +47,7 @@ public class ImagesNet extends GDActivity implements OnItemClickListener, OnClic
 		String result = sc.getDataConnection(aParams);
 		
 		ArrayList<String> images = new ArrayList<String>();
+		ArrayList<String> idImages = new ArrayList<String>();
 					
 		//parse json data	     
 	    try{
@@ -56,11 +58,12 @@ public class ImagesNet extends GDActivity implements OnItemClickListener, OnClic
 	               JSONObject json_data = jArray.getJSONObject(i);
 	               		              
 	               images.add(server + "Imatges/" + json_data.getString("imatge"));
+	               idImages.add(json_data.getString("IdImatge"));
 	             
 	         }   
 	        Toast.makeText(getApplicationContext(), "pass3", Toast.LENGTH_SHORT).show();
 	        imageURLs = images.toArray(new String[images.size()]);
-	        
+	        idIMG = idImages.toArray(new String[idImages.size()]);
 	     
 	       
 	    }catch(JSONException e){
@@ -96,7 +99,7 @@ public class ImagesNet extends GDActivity implements OnItemClickListener, OnClic
 		Intent intent = new Intent(ImagesNet.this, ImageSensors.class);
 		Bundle bundle = new Bundle();
 		bundle.putString("session", session);
-		bundle.putInt("index", idXarxa);
+		bundle.putString("index", idIMG[position]);
 		bundle.putString("url", urlIMG);
 		intent.putExtras(bundle);
 		startActivity(intent);

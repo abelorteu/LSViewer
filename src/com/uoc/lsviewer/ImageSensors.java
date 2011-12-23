@@ -5,6 +5,10 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,135 +17,124 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.Toast;
 import greendroid.app.GDActivity;
 
 public class ImageSensors extends GDActivity{
 
-	 InternalView myView;
-	 String url;
-	
+	private InternalView myView;
+	private ServerConnection sc;
+	private String url;
+	private String idIMG;
+	private String session;
+	private Context context;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		/*super.onCreate(savedInstanceState);
-		setActionBarContentView(R.layout.imagesensors);
-		
-		Bundle bundle = getIntent().getExtras();
-        String session = bundle.getString("session");
-        Integer idXarxa = bundle.getInt("index");
-        String url = bundle.getString("url");             
-        
-        ImageView imgView =(ImageView)findViewById(R.id.imgView);
-        
-        //http://www.androidpeople.com/android-load-image-url-example
-        
-        Drawable drawable = LoadImageFromWebOperations(url);
-        imgView.setBackgroundDrawable(drawable);*/
-        
-                
-        //Canvas
-        //http://www.droidnova.com/playing-with-graphics-in-android-part-i,147.html
-		//http://www.androidda.com/2011/03/usar-canvas-drawing-en-android/
-		//http://stackoverflow.com/questions/3035692/how-to-convert-a-drawable-to-a-bitmap
-        
-        
-        super.onCreate(savedInstanceState);
-        myView = new InternalView(this);
-       
+		super.onCreate(savedInstanceState);
+		context = this;
 
-        Bundle bundle = getIntent().getExtras();
-        String session = bundle.getString("session");
-        Integer idXarxa = bundle.getInt("index");
-        url = bundle.getString("url");   
-        
-        //Drawable drawable = LoadImageFromWebOperations(url);
-        //myView.setBackgroundDrawable(drawable);
-       // myView.setBackgroundColor(R.color.greyWeak);
-        
-        
-        
-        setActionBarContentView(myView);
-        
+		// Get variables
+		Bundle bundle = getIntent().getExtras();
+		session = bundle.getString("session");
+		idIMG = bundle.getString("index");
+		url = bundle.getString("url");
+		
+		// Create view (canvas)
+		myView = new InternalView(this);
+		setActionBarContentView(myView);
 	}
 
-    private Drawable LoadImageFromWebOperations(String url) {
-    	try {
-    		InputStream is = (InputStream) new URL(url).getContent();
-    		Drawable d = Drawable.createFromStream(is, "src name");
-		    return d;
-    	}catch (Exception e) {
-	      	System.out.println("Exc="+e);
-	       	return null;
-	    }
-    }
-    
-    private class InternalView extends View{
-        public InternalView(Context context){
-            super(context);
-        }
- 
-        @Override
-        protected void onDraw(Canvas canvas) {
-            super.onDraw(canvas);
-            
-            URL url_value;
-        	Bitmap mIcon1 = null; 
+	private class InternalView extends View{
+		public InternalView(Context context){
+			super(context);
+		}
+
+		@Override
+		protected void onDraw(Canvas canvas) {
+			super.onDraw(canvas);
+
+			// Get image from server
+			URL url_value;
+			Bitmap mIcon1 = null; 							
 			try {
 				url_value = new URL(url);
 				mIcon1 = BitmapFactory.decodeStream(url_value.openConnection().getInputStream());
-			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}          
-            
+			} catch (IOException e1) {
+				 Log.e("log_tag", "Error in http connection "+e1.toString());
+			}			          
 			
+			// Resize image
 			Bitmap resized = null;
-			//try {                   
-                 
-                Display display = getWindowManager().getDefaultDisplay();                 
-                int screenHeight = display.getHeight();
-                int screenWidth = display.getWidth();  
-                               
-                int imgHeight = mIcon1.getHeight();
-                int imgWidth = mIcon1.getWidth();
-                                
-                double escalaX = (double)screenWidth / (double)imgWidth;
-        		double escalaY = (double)screenHeight / (double)imgHeight;
-         
-        		// Tomo como referencia el minimo de las escalas
-        		double fEscala = Math.min(escalaX, escalaY);
-        		if(fEscala > 1) {
-        			fEscala = 1;
-        		}	
-        			imgHeight = (int) (imgHeight * fEscala);
-        			imgWidth = (int) (imgWidth * fEscala);
-        		
-                                
-                resized = Bitmap.createScaledBitmap(mIcon1, imgWidth, imgHeight, false);  
-			//} catch (Exception e) {
-				// TODO: handle exception
-			//}
-			
-            Paint paint = new Paint();  
-            //paint.setStyle(Paint.Style.FILL);
-            //paint.setColor(R.color.greyWeak);
-            canvas.drawColor(R.color.greyWeak);
-            //canvas.drawBitmap(mIcon1, null, paint);
-            //Escalar imagen 
-            //http://www.anddev.org/resize_and_rotate_image_-_example-t621.html
-            //http://www.anddev.org/android-2d-3d-graphics-opengl-problems-f55/resizing-a-bitmap-t14882.html
-            canvas.drawBitmap(resized, 0, 0, paint);
-            //canvas.setBitmap(mIcon1);
-            canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.red_dot), (float) (151 * fEscala), (float) (200 * fEscala), paint);
-            
- 
-        }
-    }
+			Display display = getWindowManager().getDefaultDisplay();                 
+		
+			int imgHeight = mIcon1.getHeight();
+			int imgWidth = mIcon1.getWidth();
+			double escalaX = (double)display.getWidth() / (double)imgWidth;
+			double escalaY = (double)display.getHeight() / (double)imgHeight;
+
+			// Tomo como referencia el minimo de las escalas
+			double fEscala = Math.min(escalaX, escalaY);
+			if(fEscala > 1) {
+				fEscala = 1;
+			}	
+			imgHeight = (int) (imgHeight * fEscala);
+			imgWidth = (int) (imgWidth * fEscala);
+
+			resized = Bitmap.createScaledBitmap(mIcon1, imgWidth, imgHeight, false); 			
+
+			Paint paint = new Paint();  
+			//canvas.drawColor(R.color.greyWeak);
+						
+			// paint image
+			canvas.drawBitmap(resized, 0, 0, paint);
+
+			// Get sensors points
+			// Server Connection and convert response to string 
+			sc = new ServerConnection(context, 3);		
+			String aParams[] = {session, idIMG};
+			String result = sc.getDataConnection(aParams);
+
+			//parse json data
+			try{
+				JSONArray jArray = new JSONArray(result);
+
+				// Get dot
+				Bitmap dot = BitmapFactory.decodeResource(getResources(), R.drawable.red_dot);
+				// Calcule the point of the dot
+				int xDot = dot.getHeight() / 2;
+				int yDot = dot.getWidth();
+				
+				// Get data
+				for(int i = 0; i < jArray.length(); i++){	        	
+					JSONObject json_data = jArray.getJSONObject(i);
+
+					float x =  (float) (json_data.getInt("x") * fEscala) - xDot;
+					float y =  (float) (json_data.getInt("y") * fEscala) - yDot; 
+					
+					// Paint sensor
+					canvas.drawBitmap(dot, x, y, paint);
+					//images.add(server + "Imatges/" + json_data.getString("imatge"));
+					//idImages.add(json_data.getString("IdImatge"));					
+				}   
+				//Toast.makeText(getApplicationContext(), "pass3", Toast.LENGTH_SHORT).show();
+				//imageURLs = images.toArray(new String[images.size()]);
+				//idIMG = idImages.toArray(new String[idImages.size()]);
+
+			}catch(JSONException e){
+				Log.e("log_tag", "Error parsing data "+e.toString());
+				Toast.makeText(getApplicationContext(), "fail3", Toast.LENGTH_SHORT).show();
+			}
+
+
+
+
+		}
+	}
 }
