@@ -42,9 +42,13 @@ public class ImagesNet extends GDActivity implements OnItemClickListener, OnClic
         idXarxa = bundle.getInt("index");
 		
 		 // Server Connection and convert response to string 
-		sc = new ServerConnection(this, 2);		
+		/*sc = new ServerConnection(this, 2);		
 		String aParams[] = {session, idXarxa.toString()};
-		String result = sc.getDataConnection(aParams);
+		String result = sc.getDataConnection(aParams);*/
+    
+        sc = new ServerConnection(this);		
+		String params = getResources().getString(R.string.llistaImatges) + "?session=" + session + "&IdXarxa=" + idXarxa.toString();
+		String result = sc.getDataConnection(params);
 		
 		ArrayList<String> images = new ArrayList<String>();
 		ArrayList<String> idImages = new ArrayList<String>();

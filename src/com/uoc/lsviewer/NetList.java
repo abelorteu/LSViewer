@@ -41,10 +41,10 @@ public class NetList extends GDActivity {
 		Bundle bundle = getIntent().getExtras();
 		session = bundle.getString("session");			
 		
-		// Server Connection and convert response to string 
-		sc = new ServerConnection(this, 0);		
-		String aParams[] = {session};
-		String result = sc.getDataConnection(aParams);		
+		// Server Connection and convert response to string 	
+		sc = new ServerConnection(this);		
+		String params = getResources().getString(R.string.llistatXarxes) + "?session=" + session;
+		String result = sc.getDataConnection(params);
 		     		
 		//parse json data	     
 	    try{

@@ -54,9 +54,9 @@ public class SensorList extends GDActivity{
         tvNetInfo.setText(nomXarxa);	    
 	    
 	    // Server Connection and convert response to string 
-	    sc = new ServerConnection(this, 1);		
-		String aParams[] = {session, idXarxa};
-		String result = sc.getDataConnection(aParams);	
+        sc = new ServerConnection(this);		
+		String params = getResources().getString(R.string.llistatSensors) + "?session=" + session + "&IdXarxa=" + idXarxa;
+		String result = sc.getDataConnection(params);
 	    	    
 		//parse json data	     
 	    try{

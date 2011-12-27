@@ -97,10 +97,10 @@ public class ImageSensors extends GDActivity{
 			canvas.drawBitmap(resized, 0, 0, paint);
 
 			// Get sensors points
-			// Server Connection and convert response to string 
-			sc = new ServerConnection(context, 3);		
-			String aParams[] = {session, idIMG};
-			String result = sc.getDataConnection(aParams);
+			// Server Connection and convert response to string 			
+			sc = new ServerConnection(context);		
+			String params = getResources().getString(R.string.llistaSensorsImatge) + "?session=" + session + "&IdImatge=" + idIMG;
+			String result = sc.getDataConnection(params);
 
 			//parse json data
 			try{
@@ -166,6 +166,7 @@ public class ImageSensors extends GDActivity{
 				Bundle bundle = new Bundle();
 				bundle.putString("session", session);
 				bundle.putString("sensor", idSensor);
+				bundle.putString("activity", "ImageSensors");
 				intent.putExtras(bundle);
 				startActivity(intent);
 			}

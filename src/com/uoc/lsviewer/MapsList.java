@@ -55,16 +55,14 @@ public class MapsList extends GDMapActivity {
 	        	        
 	        tvName.setText("Net List");	        
 	        
-	        // Server Connection and convert response to string 
-			sc = new ServerConnection(this, 0);		
-			String aParams[] = {session};
-			String result = sc.getDataConnection(aParams);		
+	        // Server Connection and convert response to string 	
+			sc = new ServerConnection(this);		
+			String params = getResources().getString(R.string.llistatXarxes) + "?session=" + session;
+			String result = sc.getDataConnection(params);
 	        
 			// Recogemos los puntos			
 			//parse json data	     
 		    try{
-		    	
-		    	//[{"Poblacio":"Barcelona","Nom":"Sagrada Fam\u00c3\u00adlia","IdXarxa":"000","Sensors":"4","Lat":"41.403413","Lon":"2.173941"},{"Poblacio":"Barcelona","Nom":"Torre Agbar","IdXarxa":"001","Sensors":"16","Lat":"41.403702","Lon":"2.189503"},{"Poblacio":"Val\u00c3\u00a8ncia","Nom":"Passarel\u00c2\u00b7la de l'Exposici\u00c3\u00b3","IdXarxa":"002","Sensors":"18","Lat":"39,47322","Lon":"-0,36575"}]
 		    	
 		    	OverlayItem itemNet;
 		    	JSONArray jArray = new JSONArray(result);

@@ -28,6 +28,7 @@ public class SensorInfo extends GDActivity {
 	
 	String session;
 	String sensor;
+	String activity;
 	ServerConnection sc;
 	
 	@Override
@@ -39,9 +40,17 @@ public class SensorInfo extends GDActivity {
 	        Bundle bundle = getIntent().getExtras();
 			session = bundle.getString("session");
 			sensor = bundle.getString("sensor");
-	        sc = new ServerConnection(this, 4);                
-            String aParams[] = {session, sensor};
-            String result = sc.getDataConnection(aParams);
+			activity = bundle.getString("activity");
+			
+			if(activity == "ImageSensors"){
+				
+			} else {
+				
+			}
+					
+			sc = new ServerConnection(this);                
+            String params = getResources().getString(R.string.sensorInfo) + "?session=" + session + "&sensor=" + sensor;
+            String result = sc.getDataConnection(params);
             try{
 	            JSONArray jArray = new JSONArray(result);
 	            JSONObject json_data = jArray.getJSONObject(0);

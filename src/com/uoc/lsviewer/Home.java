@@ -83,9 +83,18 @@ public class Home extends GDActivity{
 			
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(Home.this, QRCode.class);
+				/*Intent intent = new Intent(Home.this, QRCode.class);
 				
-				startActivity(intent);					
+				// Id session
+				Bundle bundle = new Bundle();
+				bundle.putString("session", session);
+				intent.putExtras(bundle);
+				
+				startActivity(intent);			*/
+				
+				
+				IntentIntegrator.initiateScan(Home.this);
+				
 			}
 		});	
 		
@@ -175,5 +184,32 @@ public class Home extends GDActivity{
 		}
 	
 		return true;
+	}
+	
+	
+	
+	
+	
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		switch(requestCode) {
+		case IntentIntegrator.REQUEST_CODE: {
+			if (resultCode != RESULT_CANCELED) {
+				IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+				if (scanResult != null) {
+					String sensor = scanResult.getContents();
+					//tvResult.setText("The result is: " + upc);
+					
+					Intent intent = new Intent(Home.this, SensorInfo.class);
+					Bundle bundle = new Bundle();
+					bundle.putString("session", session);
+					bundle.putString("sensor", sensor);
+					bundle.putString("activity", "QRCode");
+					intent.putExtras(bundle);
+					startActivity(intent);
+				}
+			}
+			break;
+		}
+		}
 	}
 }
