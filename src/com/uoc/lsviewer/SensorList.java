@@ -103,6 +103,7 @@ public class SensorList extends GDActivity{
               	bundle.putString("session", session);
               	txt =(TextView)parent.getChildAt(position).findViewById(R.id.nomSensor);
 				bundle.putString("sensor", txt.getText().toString());
+				bundle.putString("activity", "SensorList");
 				intent.putExtras(bundle);
 				startActivity(intent);
             }

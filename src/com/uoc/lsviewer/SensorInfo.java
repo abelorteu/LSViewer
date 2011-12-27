@@ -42,14 +42,15 @@ public class SensorInfo extends GDActivity {
 			sensor = bundle.getString("sensor");
 			activity = bundle.getString("activity");
 			
-			if(activity == "ImageSensors"){
-				
-			} else {
-				
-			}
-					
-			sc = new ServerConnection(this);                
-            String params = getResources().getString(R.string.sensorInfo) + "?session=" + session + "&sensor=" + sensor;
+			// Server connection
+			sc = new ServerConnection(this);
+			String params = getResources().getString(R.string.sensorInfo) + "?session=" + session;
+			if(activity == "QRCode"){
+				params = params + "&serialNumber=" + sensor;				
+			} else {				
+				params = params + "&sensor=" + sensor;
+			}								                
+            
             String result = sc.getDataConnection(params);
             try{
 	            JSONArray jArray = new JSONArray(result);

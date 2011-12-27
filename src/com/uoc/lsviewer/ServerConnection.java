@@ -19,14 +19,12 @@ public class ServerConnection {
 
 	Context context;
 	Resources res;
-	String session;
 	InputStream is;	
 	
 	public ServerConnection(Context cont) {		
 		context = cont;
 		res = context.getResources();
 	}
-
 
 	public String getDataConnection (String params) {
 
