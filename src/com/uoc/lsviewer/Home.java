@@ -27,6 +27,8 @@ public class Home extends GDActivity{
 	static final int DIALOG_EXIT = 0;	
 	private String session;
 	private static String REMEMBERED = "remembered";
+	private static String strUSER = "User";
+	private static String strPASS = "Password";
 	
 		
 	@Override
@@ -86,8 +88,7 @@ public class Home extends GDActivity{
 				Intent intent = new Intent(Home.this, Help.class);				
 				startActivity(intent);					
 			}
-		});
-		
+		});		
 	}
 	
 	@Override
@@ -133,6 +134,8 @@ public class Home extends GDActivity{
 	        	        	   //Obtenemos el editor de las preferencias.
 	        	        	   SharedPreferences.Editor editor = sp.edit();
 	        	        	   editor.putBoolean(REMEMBERED, false);
+	        	        	   editor.putString(strUSER, "");
+	        	        	   editor.putString(strPASS, "");
 	        	        	   editor.commit();
 	        	        	   Home.this.finish();
 	        	           }
