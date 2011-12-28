@@ -13,6 +13,7 @@
 	<string name="app_SensorList">LSViewer - Sensor List</string>
 	<string name="app_SensorInfo">LSViewer - Sensor Info</string>
 	<string name="app_Help">LSViewer - Help</string>
+	<string name="app_Graph">LSViewer - Graph</string>
 	
 	<!--  Login Screen -->
     <string name="user">User</string>
@@ -57,5 +58,6 @@
 	<string name="snOffSet">OffSet: </string>
 	<string name="snAlarmAt">Alarma a: </string>
 	<string name="snLastTare">Última tara: </string>	
+	<string name="snBtn">Gràfic </string>
 
 </resources>

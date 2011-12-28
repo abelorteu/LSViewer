@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.uoc.lsviewer"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="1.0"
+    >
 
     <uses-sdk android:minSdkVersion="7" />
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -50,6 +51,9 @@
             android:label="@string/app_SensorInfo"/>        
        <activity 
             android:name=".Help" 
-            android:label="@string/app_Help"/>    
+            android:label="@string/app_Help"/>
+       <activity 
+            android:name=".Graph" 
+            android:label="@string/app_Graph"/>      
     </application>
 </manifest>
