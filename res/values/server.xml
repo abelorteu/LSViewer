@@ -4,6 +4,7 @@
     <!-- <string name="Servidor">http://viuterrassa.com/Android/</string> -->
     
 	<!-- Server data -->
+	<string name="login">login.php</string>
 	<string name="llistatXarxes">getLlistatXarxes.php</string>
 	<string name="llistatSensors">getLlistaSensors.php</string>
 	<string name="llistaImatges">getLlistaImatges.php</string>

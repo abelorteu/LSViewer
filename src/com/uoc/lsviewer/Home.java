@@ -6,6 +6,7 @@ import greendroid.widget.ActionBarItem.Type;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,14 +21,12 @@ public class Home extends GDActivity{
 	private Button btnList;
 	private Button btnMapa;
 	private Button btnQRCode;
-	private Button btnHelp;
-	
+	private Button btnHelp;	
 	private final int LOCATE = 0;
-	private final int REFRESH = 1;
-	
-	static final int DIALOG_EXIT = 0;
-	
-	String session;
+	private final int REFRESH = 1;	
+	static final int DIALOG_EXIT = 0;	
+	private String session;
+	private static String REMEMBERED = "remembered";
 	
 		
 	@Override
@@ -44,67 +43,47 @@ public class Home extends GDActivity{
 		Bundle bundle = getIntent().getExtras();
 		session = bundle.getString("session");		
 		
-		Toast.makeText(Home.this, bundle.getString("session"), Toast.LENGTH_LONG).show();
+		//Toast.makeText(Home.this, bundle.getString("session"), Toast.LENGTH_LONG).show();
 		
 		// Llistat de xarxes
-		btnList.setOnClickListener(new OnClickListener() {
-			
+		btnList.setOnClickListener(new OnClickListener() {			
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(Home.this, NetList.class);
-				
 				// Id session
 				Bundle bundle = new Bundle();
 				bundle.putString("session", session);
-				intent.putExtras(bundle);
-				
+				intent.putExtras(bundle);				
 				startActivity(intent);				
 			}
 		});
 		
 		// Llistat de xarxes al mapa
-		btnMapa.setOnClickListener(new OnClickListener() {
-			
+		btnMapa.setOnClickListener(new OnClickListener() {			
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(Home.this, MapsList.class);
-				
+				Intent intent = new Intent(Home.this, MapsList.class);				
 				// Id session
 				Bundle bundle = new Bundle();
 				bundle.putString("session", session);
-				intent.putExtras(bundle);
-				
+				intent.putExtras(bundle);				
 				startActivity(intent);				
 			}
 		});
 	
 		// Llegir QRCode
-		btnQRCode.setOnClickListener(new OnClickListener() {
-			
+		btnQRCode.setOnClickListener(new OnClickListener() {			
 			@Override
-			public void onClick(View v) {
-				/*Intent intent = new Intent(Home.this, QRCode.class);
-				
-				// Id session
-				Bundle bundle = new Bundle();
-				bundle.putString("session", session);
-				intent.putExtras(bundle);
-				
-				startActivity(intent);			*/
-				
-				
+			public void onClick(View v) {				
 				IntentIntegrator.initiateScan(Home.this);
-				
 			}
 		});	
 		
 		// Ajuda
-	    btnHelp.setOnClickListener(new OnClickListener() {
-			
+	    btnHelp.setOnClickListener(new OnClickListener() {			
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(Home.this, Help.class);
-				
+				Intent intent = new Intent(Home.this, Help.class);				
 				startActivity(intent);					
 			}
 		});
@@ -113,7 +92,6 @@ public class Home extends GDActivity{
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-
 		MenuInflater inflater = getMenuInflater();
 	    inflater.inflate(R.menu.mhome, menu);
 	    return true;
@@ -121,46 +99,62 @@ public class Home extends GDActivity{
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		AlertDialog.Builder builder;
 	    switch (item.getItemId()) {
 	        case R.id.m_opcions:
 	        	
-	            //lblMensaje.setText("Opcion 1 pulsada!");
 	            return true;
 	        case R.id.m_sortir:
-	            //lblMensaje.setText("Opcion 2 pulsada!");;
 	        	
-	        	AlertDialog.Builder builder = new AlertDialog.Builder(this);
+	        	builder = new AlertDialog.Builder(this);
 	        	builder.setMessage(R.string.mDialogSortir)
 	        	       .setCancelable(false)
-	        	       .setPositiveButton(R.string.mDialogSortirSi, new DialogInterface.OnClickListener() {
+	        	       .setPositiveButton(R.string.mDialogSi, new DialogInterface.OnClickListener() {
 	        	           public void onClick(DialogInterface dialog, int id) {
 	        	        	   Home.this.finish();
 	        	           }
 	        	       })
-	        	       .setNegativeButton(R.string.mDialogSortirNo, new DialogInterface.OnClickListener() {
+	        	       .setNegativeButton(R.string.mDialogNo, new DialogInterface.OnClickListener() {
 	        	           public void onClick(DialogInterface dialog, int id) {
 	        	                dialog.cancel();
 	        	           }
 	        	       });
-	        	AlertDialog alert = builder.create();	        	
-	        	alert.show();
+	        	AlertDialog alert1 = builder.create();	        	
+	        	alert1.show();
 	        		        	
 	            return true;
 	        case R.id.m_tancar_sessio:
-	            //lblMensaje.setText("Opcion 3 pulsada!");;
+	        	builder = new AlertDialog.Builder(this);
+	        	builder.setMessage(R.string.mDialogLogout)
+	        	       .setCancelable(false)
+	        	       .setPositiveButton(R.string.mDialogSi, new DialogInterface.OnClickListener() {
+	        	           public void onClick(DialogInterface dialog, int id) {
+	        	        	   SharedPreferences sp = getApplicationContext().getSharedPreferences("settings", 0);
+	        	        	   //Obtenemos el editor de las preferencias.
+	        	        	   SharedPreferences.Editor editor = sp.edit();
+	        	        	   editor.putBoolean(REMEMBERED, false);
+	        	        	   editor.commit();
+	        	        	   Home.this.finish();
+	        	           }
+	        	       })
+	        	       .setNegativeButton(R.string.mDialogNo, new DialogInterface.OnClickListener() {
+	        	           public void onClick(DialogInterface dialog, int id) {
+	        	                dialog.cancel();
+	        	           }
+	        	       });
+	        	AlertDialog alert2 = builder.create();	        	
+	        	alert2.show();        	
+	        	
 	            return true;
 	        default:
 	            return super.onOptionsItemSelected(item);
 	    }
 	}
-	
-	
-	
+
 	private void initActionBar() {
 		
 		addActionBarItem(Type.Locate, LOCATE);
 		addActionBarItem(Type.Refresh, REFRESH);	
-
 	}
 	
 	@Override
