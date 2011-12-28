@@ -70,14 +70,6 @@ public class Login extends GDActivity {
 					user = etUser.getText().toString();
 					pass = etPass.getText().toString();
 					saveData = cbRemember.isChecked();
-					if(saveData == true){
-						//Obtenemos el editor de las preferencias para guardarlas
-						SharedPreferences.Editor editor = sp.edit();
-						editor.putString(strUSER, user);
-						editor.putString(strPASS, pass);
-						editor.putBoolean(REMEMBERED, true);
-						editor.commit();
-					}
 					validar(user, pass);
 				}
 			}); 
@@ -119,6 +111,14 @@ public class Login extends GDActivity {
 					if(session.equals("0")){
 						Toast.makeText(Login.this, "L'usuari o la contrasenya són incorrectes!", Toast.LENGTH_LONG).show();
 					}else{
+						if(saveData == true){
+							//Obtenemos el editor de las preferencias para guardarlas
+							SharedPreferences.Editor editor = sp.edit();
+							editor.putString(strUSER, user);
+							editor.putString(strPASS, pass);
+							editor.putBoolean(REMEMBERED, true);
+							editor.commit();
+						}	
 						Intent intent = new Intent(Login.this, Home.class);							
 						Bundle bundle = new Bundle();
 						bundle.putString("session", session);
