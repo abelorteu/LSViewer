@@ -1,6 +1,9 @@
 package com.uoc.lsviewer;
 
 import greendroid.app.GDActivity;
+import greendroid.graphics.drawable.ActionBarDrawable;
+import greendroid.widget.ActionBarItem;
+import greendroid.widget.NormalActionBarItem;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,6 +15,7 @@ import org.json.JSONObject;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -32,15 +36,16 @@ public class SensorList extends GDActivity{
 	private static final String TipusKEY = "SensorTipus";
 	private static final String DescripcioKEY = "SensorDesc";
 	
-	ServerConnection sc;	
-	String session;
-	String idXarxa;
-	String nomXarxa;
+	private ServerConnection sc;	
+	private String session;
+	private String idXarxa;
+	private String nomXarxa;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setActionBarContentView(R.layout.sensorlist);		
+		setActionBarContentView(R.layout.sensorlist);	
+		initActionBar();
 
 	    ListView listView = (ListView)findViewById(R.id.Llista);	    
 		//Indiquem sobre quina xarxa estem treballant
@@ -104,10 +109,56 @@ public class SensorList extends GDActivity{
               	txt =(TextView)parent.getChildAt(position).findViewById(R.id.nomSensor);
 				bundle.putString("sensor", txt.getText().toString());
 				bundle.putString("activity", "SensorList");
+				bundle.putString("idXarxa", idXarxa);
+			    bundle.putString("nomXarxa", nomXarxa);	
 				intent.putExtras(bundle);
 				startActivity(intent);
+				finish();
             }
           };
           listView.setOnItemClickListener(listener);		
+	}
+	
+	private void initActionBar() {
+
+		addActionBarItem(getActionBar()
+                .newActionBarItem(NormalActionBarItem.class)
+				.setDrawable(new ActionBarDrawable(this, R.drawable.ic_menu_home)), R.id.action_bar_view_home);
+	}
+	
+	@Override
+	public boolean onHandleActionBarItemClick(ActionBarItem item, int position) {
+		switch (item.getItemId()) {
+			
+			case R.id.action_bar_view_home:
+				Intent intent = new Intent(SensorList.this, Home.class);							
+				Bundle bundle = new Bundle();
+				bundle.putString("session", session);
+				intent.putExtras(bundle);
+				startActivity(intent);
+				finish();
+				
+			break;
+		
+			default:
+				return super.onHandleActionBarItemClick(item, position);
+		}
+		return true;
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+	    if (keyCode == KeyEvent.KEYCODE_BACK) {
+	    	Log.d(this.getClass().getName(), "back button pressed");
+	       
+	    	Intent intent = new Intent(SensorList.this, NetList.class);							
+			Bundle bundle = new Bundle();
+			bundle.putString("session", session);
+			intent.putExtras(bundle);
+			startActivity(intent);
+			finish();
+	        return true;
+	    }
+	    return super.onKeyDown(keyCode, event);
 	}
 }

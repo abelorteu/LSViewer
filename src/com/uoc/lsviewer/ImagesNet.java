@@ -11,13 +11,16 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import greendroid.app.GDActivity;
+import greendroid.graphics.drawable.ActionBarDrawable;
+import greendroid.widget.ActionBarItem;
+import greendroid.widget.NormalActionBarItem;
 
 public class ImagesNet extends GDActivity implements OnItemClickListener, OnClickListener {
 	
@@ -36,16 +39,13 @@ public class ImagesNet extends GDActivity implements OnItemClickListener, OnClic
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setActionBarContentView(R.layout.imagesnet);
+		initActionBar();
 		
 		Bundle bundle = getIntent().getExtras();
         session = bundle.getString("session");
-        idXarxa = bundle.getInt("index");
+        idXarxa = bundle.getInt("idXarxa");
 		
-		 // Server Connection and convert response to string 
-		/*sc = new ServerConnection(this, 2);		
-		String aParams[] = {session, idXarxa.toString()};
-		String result = sc.getDataConnection(aParams);*/
-    
+		 // Server Connection and convert response to string     
         sc = new ServerConnection(this);		
 		String params = getResources().getString(R.string.llistaImatges) + "?session=" + session + "&IdXarxa=" + idXarxa.toString();
 		String result = sc.getDataConnection(params);
@@ -65,14 +65,13 @@ public class ImagesNet extends GDActivity implements OnItemClickListener, OnClic
 	               idImages.add(json_data.getString("IdImatge"));
 	             
 	         }   
-	        Toast.makeText(getApplicationContext(), "pass3", Toast.LENGTH_SHORT).show();
+	        //Toast.makeText(getApplicationContext(), "pass3", Toast.LENGTH_SHORT).show();
 	        imageURLs = images.toArray(new String[images.size()]);
-	        idIMG = idImages.toArray(new String[idImages.size()]);
-	     
+	        idIMG = idImages.toArray(new String[idImages.size()]);	     
 	       
 	    }catch(JSONException e){
 	    	Log.e("log_tag", "Error parsing data "+e.toString());
-	        Toast.makeText(getApplicationContext(), "fail3", Toast.LENGTH_SHORT).show();
+	        //Toast.makeText(getApplicationContext(), "fail3", Toast.LENGTH_SHORT).show();
 	    }		
 		
 		// get data generated before a config change, if it exists
@@ -96,17 +95,17 @@ public class ImagesNet extends GDActivity implements OnItemClickListener, OnClic
 	 * full-screen in a new Activity.
 	 */
 	public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-
-		//openPage((String) adapter.getItem(position));
 		
 		String urlIMG = (String) adapter.getItem(position);
 		Intent intent = new Intent(ImagesNet.this, ImageSensors.class);
 		Bundle bundle = new Bundle();
 		bundle.putString("session", session);
-		bundle.putString("index", idIMG[position]);
+		bundle.putInt("idXarxa", idXarxa);
+		bundle.putString("idIMG", idIMG[position]);
 		bundle.putString("url", urlIMG);
 		intent.putExtras(bundle);
 		startActivity(intent);
+		finish();
 	}
 
 
@@ -144,6 +143,49 @@ public class ImagesNet extends GDActivity implements OnItemClickListener, OnClic
 	@Override
 	public Object onRetainNonConfigurationInstance() {
 		return adapter.getData();
+	}
+	
+	private void initActionBar() {
+
+		addActionBarItem(getActionBar()
+                .newActionBarItem(NormalActionBarItem.class)
+				.setDrawable(new ActionBarDrawable(this, R.drawable.ic_menu_home)), R.id.action_bar_view_home);
+	}
+	
+	@Override
+	public boolean onHandleActionBarItemClick(ActionBarItem item, int position) {
+		switch (item.getItemId()) {
+			
+			case R.id.action_bar_view_home:
+				Intent intent = new Intent(ImagesNet.this, Home.class);							
+				Bundle bundle = new Bundle();
+				bundle.putString("session", session);
+				intent.putExtras(bundle);
+				startActivity(intent);
+				finish();
+				
+			break;
+		
+			default:
+				return super.onHandleActionBarItemClick(item, position);
+		}
+		return true;
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+	    if (keyCode == KeyEvent.KEYCODE_BACK) {
+	    	Log.d(this.getClass().getName(), "back button pressed");
+	        //moveTaskToBack(true);
+	    	Intent intent = new Intent(ImagesNet.this, MapsList.class);							
+			Bundle bundle = new Bundle();
+			bundle.putString("session", session);
+			intent.putExtras(bundle);
+			startActivity(intent);
+			finish();
+	        return true;
+	    }
+	    return super.onKeyDown(keyCode, event);
 	}
 	
 }

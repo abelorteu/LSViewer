@@ -59,5 +59,8 @@
 	<string name="snAlarmAt">Alarma a: </string>
 	<string name="snLastTare">Última tara: </string>	
 	<string name="snBtn">Gràfic </string>
+	
+	<!-- Maps List Net -->
+	<string name="netList">Net List</string>
 
 </resources>

@@ -1,13 +1,18 @@
 package com.uoc.lsviewer;
 
 import greendroid.app.GDActivity;
+import greendroid.graphics.drawable.ActionBarDrawable;
+import greendroid.widget.ActionBarItem;
+import greendroid.widget.NormalActionBarItem;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,21 +31,31 @@ public class SensorInfo extends GDActivity {
 	private TextView txtAlarmAt;
 	private TextView txtLastTare;
 	
-	String session;
-	String sensor;
-	String activity;
-	ServerConnection sc;
+	private String session;
+	private String sensor;
+	private String activity;
+	private ServerConnection sc;
+	private int idXarxa;
+	private String nomXarxa;
+	private String idIMG;
+	private String url;
+	
 	
 	@Override
 	 public void onCreate(Bundle savedInstanceState) {
 		
 	        super.onCreate(savedInstanceState);
 	        setActionBarContentView(R.layout.sensorinfo);
+	        initActionBar();
 	        
 	        Bundle bundle = getIntent().getExtras();
 			session = bundle.getString("session");
 			sensor = bundle.getString("sensor");
 			activity = bundle.getString("activity");
+			idXarxa = bundle.getInt("idXarxa");
+		    nomXarxa = bundle.getString("nomXarxa");		    
+		    idIMG = bundle.getString("idIMG");			
+			url = bundle.getString("url");
 			
 			// Server connection
 			sc = new ServerConnection(this);
@@ -84,6 +99,74 @@ public class SensorInfo extends GDActivity {
 	               Toast.makeText(getApplicationContext(), "Error al carregar la informació", Toast.LENGTH_SHORT).show();
 	         }
 
+	}
+	
+	private void initActionBar() {
+
+		addActionBarItem(getActionBar()
+                .newActionBarItem(NormalActionBarItem.class)
+				.setDrawable(new ActionBarDrawable(this, R.drawable.ic_menu_home)), R.id.action_bar_view_home);
+	}
+	
+	@Override
+	public boolean onHandleActionBarItemClick(ActionBarItem item, int position) {
+		switch (item.getItemId()) {
+			
+			case R.id.action_bar_view_home:
+				Intent intent = new Intent(SensorInfo.this, Home.class);							
+				Bundle bundle = new Bundle();
+				bundle.putString("session", session);
+				intent.putExtras(bundle);
+				startActivity(intent);
+				finish();
+				
+			break;
+		
+			default:
+				return super.onHandleActionBarItemClick(item, position);
+		}
+		return true;
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+	    if (keyCode == KeyEvent.KEYCODE_BACK) {
+	    	Log.d(this.getClass().getName(), "back button pressed");
+
+	    	if(activity.compareTo("QRCode") == 0) {
+	    		Intent intent = new Intent(SensorInfo.this, Home.class);							
+				Bundle bundle = new Bundle();
+				bundle.putString("session", session);
+				intent.putExtras(bundle);
+				startActivity(intent);
+				finish();
+	    		
+	    	} else if(activity.compareTo("ImageSensors") == 0){
+	    		
+	    		Intent intent = new Intent(SensorInfo.this, ImageSensors.class);
+	    		Bundle bundle = new Bundle();
+	    		bundle.putString("session", session);
+	    		bundle.putInt("idXarxa", idXarxa);
+	    		bundle.putString("idIMG", idIMG);
+	    		bundle.putString("url", url);
+	    		intent.putExtras(bundle);
+	    		startActivity(intent);
+	    		finish();
+	    		
+	    	} else {
+	    		Intent intent = new Intent(SensorInfo.this, SensorList.class);	
+	          	Bundle bundle = new Bundle();
+	          	bundle.putString("session", session);
+				bundle.putInt("idXarxa", idXarxa);
+				bundle.putString("nomXarxa", nomXarxa);
+				intent.putExtras(bundle);
+				startActivity(intent);
+				finish();
+	    	}
+	    	
+	        return true;
+	    }
+	    return super.onKeyDown(keyCode, event);
 	}
 
 }
