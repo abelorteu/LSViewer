@@ -17,10 +17,13 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Toast;
 import greendroid.app.GDActivity;
+import greendroid.graphics.drawable.ActionBarDrawable;
+import greendroid.widget.ActionBarItem;
+import greendroid.widget.NormalActionBarItem;
 
 public class ImageSensors extends GDActivity{
 
@@ -29,6 +32,7 @@ public class ImageSensors extends GDActivity{
 	private String url;
 	private String idIMG;
 	private String session;
+	private Integer idXarxa;
 	private Context context;
 	private int selX;		// X index of selection
 	private int selY;		// Y index of selection
@@ -42,12 +46,15 @@ public class ImageSensors extends GDActivity{
 		// Get variables
 		Bundle bundle = getIntent().getExtras();
 		session = bundle.getString("session");
-		idIMG = bundle.getString("index");
+		idIMG = bundle.getString("idIMG");
+		idXarxa = bundle.getInt("idXarxa");
 		url = bundle.getString("url");
 
 		// Create view (canvas)
 		myView = new InternalView(this);
 		setActionBarContentView(myView);
+		initActionBar();
+		
 	}
 
 	private class InternalView extends View{
@@ -121,10 +128,7 @@ public class ImageSensors extends GDActivity{
 					int xP = (int) (json_data.getInt("x") * fEscala);
 					int yP = (int) (json_data.getInt("y") * fEscala);
 					Rect dotRect = new Rect(xP - 11, yP - 32, xP + 11, yP - 5);
-					
-					// Paint rect OnTouch
-					//canvas.drawRect(dotRect, paint);
-					
+				
 					// Save Dot class
 					al.add(new Dot(json_data.getString("sensor"), xP, yP, dotRect));
 
@@ -137,7 +141,7 @@ public class ImageSensors extends GDActivity{
 
 			}catch(JSONException e){
 				Log.e("log_tag", "Error parsing data "+e.toString());
-				Toast.makeText(getApplicationContext(), "fail3", Toast.LENGTH_SHORT).show();
+				//Toast.makeText(getApplicationContext(), "fail3", Toast.LENGTH_SHORT).show();
 			}
 		}
 
@@ -167,11 +171,61 @@ public class ImageSensors extends GDActivity{
 				bundle.putString("session", session);
 				bundle.putString("sensor", idSensor);
 				bundle.putString("activity", "ImageSensors");
+				
+				bundle.putString("idIMG", idIMG);
+				bundle.putInt("idXarxa", idXarxa);
+				bundle.putString("url", url);
 				intent.putExtras(bundle);
 				startActivity(intent);
+				finish();
 			}
 			return in;
 		}
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+	    if (keyCode == KeyEvent.KEYCODE_BACK) {
+	    	Log.d(this.getClass().getName(), "back button pressed");
+	        
+	    	Intent intent = new Intent(ImageSensors.this, ImagesNet.class);
+       		Bundle bundle = new Bundle();
+       		bundle.putString("session", session);
+       		bundle.putInt("idXarxa", idXarxa);
+       		intent.putExtras(bundle);
+       		startActivity(intent);
+        	finish();
+	    	
+	        return true;
+	    }
+	    return super.onKeyDown(keyCode, event);
+	}
+	
+	private void initActionBar() {
+
+		addActionBarItem(getActionBar()
+                .newActionBarItem(NormalActionBarItem.class)
+				.setDrawable(new ActionBarDrawable(this, R.drawable.ic_menu_home)), R.id.action_bar_view_home);
+	}
+	
+	@Override
+	public boolean onHandleActionBarItemClick(ActionBarItem item, int position) {
+		switch (item.getItemId()) {
+			
+			case R.id.action_bar_view_home:
+				Intent intent = new Intent(ImageSensors.this, Home.class);							
+				Bundle bundle = new Bundle();
+				bundle.putString("session", session);
+				intent.putExtras(bundle);
+				startActivity(intent);
+				finish();
+				
+			break;
+		
+			default:
+				return super.onHandleActionBarItemClick(item, position);
+		}
+		return true;
 	}
 
 	class Dot

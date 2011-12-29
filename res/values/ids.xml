@@ -17,25 +17,11 @@
 */
 -->
 
-<merge
-	xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
 
-	 <ImageButton
-		android:id="@+id/gd_action_bar_home_item"
-		android:layout_width="wrap_content"
-		android:layout_height="fill_parent"
-		android:scaleType="center"
-		android:paddingLeft="7dp"
-		android:src="?attr/gdActionBarApplicationDrawable"
-		android:background="@null"
-		 
-		/>
+	<item type="id" name="action_bar_refresh" />
+	<item type="id" name="action_bar_export" />
+	<item type="id" name="action_bar_locate" />
+	<item type="id" name="action_bar_view_home" />
 
-	<!-- Spacer view to right-align dashboard icons -->
-	<View
-	  	android:layout_width="0dp"
-		android:layout_height="fill_parent"
-		android:layout_weight="1.0"
-		android:visibility="invisible" />
-
-</merge>
+</resources>

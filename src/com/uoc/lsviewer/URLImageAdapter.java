@@ -149,7 +149,7 @@ public class URLImageAdapter extends BaseAdapter {
 		if(cached.thumb == null) {
 			
 			// no cached thumb, so let's set the view as blank
-			imgView.setImageResource(R.drawable.ic_launcher);		
+			imgView.setImageResource(R.drawable.ic_menu_image);		
 			imgView.setScaleType(ScaleType.CENTER);
 
 		} else {

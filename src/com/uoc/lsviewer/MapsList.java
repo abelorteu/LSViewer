@@ -19,12 +19,15 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import greendroid.app.GDMapActivity;
+import greendroid.graphics.drawable.ActionBarDrawable;
 import greendroid.graphics.drawable.DrawableStateSet;
 import greendroid.graphics.drawable.MapPinDrawable;
+import greendroid.widget.ActionBarItem;
+import greendroid.widget.NormalActionBarItem;
 
 public class MapsList extends GDMapActivity {
 	
@@ -43,6 +46,7 @@ public class MapsList extends GDMapActivity {
 	 public void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);
 	        setActionBarContentView(R.layout.mapslist);
+	        initActionBar();
 	        
 	        Bundle bundle = getIntent().getExtras();
 	        session = bundle.getString("session");	
@@ -53,7 +57,7 @@ public class MapsList extends GDMapActivity {
 	        
 	        controlMap = mapView.getController();
 	        	        
-	        tvName.setText("Net List");	        
+	        tvName.setText(getResources().getString(R.string.netList));	        
 	        
 	        // Server Connection and convert response to string 	
 			sc = new ServerConnection(this);		
@@ -62,8 +66,7 @@ public class MapsList extends GDMapActivity {
 	        
 			// Recogemos los puntos			
 			//parse json data	     
-		    try{
-		    	
+		    try{		    	
 		    	OverlayItem itemNet;
 		    	JSONArray jArray = new JSONArray(result);
 		    		        
@@ -75,7 +78,7 @@ public class MapsList extends GDMapActivity {
 		               itemNet = new OverlayItem(new GeoPoint((int)(json_data.getDouble("Lat") * 1E6), (int)(json_data.getDouble("Lon") * 1E6)), json_data.getString("Nom"), null);
 		               itemizedOverlay.addOverlay(itemNet);
 	            
-		              Toast.makeText(getApplicationContext(), "pass3", Toast.LENGTH_SHORT).show();
+		              //Toast.makeText(getApplicationContext(), "pass3", Toast.LENGTH_SHORT).show();
 		         }	       
 		     
 		        mapView.getOverlays().clear();
@@ -87,11 +90,10 @@ public class MapsList extends GDMapActivity {
 		       
 		    }catch(JSONException e){
 		    	Log.e("log_tag", "Error parsing data "+e.toString());
-		        Toast.makeText(getApplicationContext(), "fail3", Toast.LENGTH_SHORT).show();
+		        //Toast.makeText(getApplicationContext(), "fail3", Toast.LENGTH_SHORT).show();
 		    }			
 	        
-	        controlMap.setZoom(8);              
-                        
+	        controlMap.setZoom(8);                        
 	 }
 	
 	@Override
@@ -147,11 +149,54 @@ public class MapsList extends GDMapActivity {
        		Intent intent = new Intent(MapsList.this, ImagesNet.class);
        		Bundle bundle = new Bundle();
        		bundle.putString("session", session);
-       		bundle.putInt("index", index);
+       		bundle.putInt("idXarxa", index);
        		intent.putExtras(bundle);
        		startActivity(intent);
-        		
+        	finish();
             return true;
         }
     }
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+	    if (keyCode == KeyEvent.KEYCODE_BACK) {
+	    	Log.d(this.getClass().getName(), "back button pressed");
+	    	Intent intent = new Intent(MapsList.this, Home.class);							
+			Bundle bundle = new Bundle();
+			bundle.putString("session", session);
+			intent.putExtras(bundle);
+			startActivity(intent);
+			finish();
+			
+	        return true;
+	    }
+	    return super.onKeyDown(keyCode, event);
+	}
+	
+	private void initActionBar() {
+
+		addActionBarItem(getActionBar()
+                .newActionBarItem(NormalActionBarItem.class)
+				.setDrawable(new ActionBarDrawable(this, R.drawable.ic_menu_home)), R.id.action_bar_view_home);
+	}
+	
+	@Override
+	public boolean onHandleActionBarItemClick(ActionBarItem item, int position) {
+		switch (item.getItemId()) {
+			
+			case R.id.action_bar_view_home:
+				Intent intent = new Intent(MapsList.this, Home.class);							
+				Bundle bundle = new Bundle();
+				bundle.putString("session", session);
+				intent.putExtras(bundle);
+				startActivity(intent);
+				finish();
+				
+			break;
+		
+			default:
+				return super.onHandleActionBarItemClick(item, position);
+		}
+		return true;
+	}
 }

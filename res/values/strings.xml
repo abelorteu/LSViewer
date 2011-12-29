@@ -2,18 +2,18 @@
 <resources>
      
     <!--  Apps Titles -->
-	<string name="app_name">LSViewer</string>
-	<string name="app_Login">LSViewer - Login</string>
-	<string name="app_Home">LSViewer - Home</string>
-	<string name="app_Maps">LSViewer - Maps</string>
-	<string name="app_Images">LSViewer - Images</string>
-	<string name="app_ImageSensors">LSViewer - Sensors Image</string>
-	<string name="app_NetList">LSViewer - Net List </string>
-	<string name="app_QRCode">LSViewer - QRCode </string>
-	<string name="app_SensorList">LSViewer - Sensor List</string>
-	<string name="app_SensorInfo">LSViewer - Sensor Info</string>
-	<string name="app_Help">LSViewer - Help</string>
-	<string name="app_Graph">LSViewer - Graph</string>
+	<string name="app_name"></string>
+	<string name="app_Login">Login</string>
+	<string name="app_Home">Home</string>
+	<string name="app_Maps">Maps</string>
+	<string name="app_Images">Images</string>
+	<string name="app_ImageSensors">Sensors Image</string>
+	<string name="app_NetList">Net List </string>
+	<string name="app_QRCode">QRCode </string>
+	<string name="app_SensorList">Sensor List</string>
+	<string name="app_SensorInfo">Sensor Info</string>
+	<string name="app_Help">Help</string>
+	<string name="app_Graph">Graph</string>
 	
 	<!--  Login Screen -->
     <string name="user">User</string>
@@ -46,18 +46,21 @@
 	<string name="TipusSensor">Type</string>
 	
 	<!--  SensorInfo Screen -->  
-	<string name="snNom">Nom: </string>
-	<string name="snPoblacio">Població: </string>
-	<string name="snDescripcio">Descripció: </string>
-	<string name="snSerialNumber">Número de sèrie: </string>
+	<string name="snNom">Name: </string>
+	<string name="snPoblacio">Town: </string>
+	<string name="snDescripcio">Description: </string>
+	<string name="snSerialNumber">Serial Number: </string>
 	<string name="snSensor">Sensor: </string>
-	<string name="snSensorName">Nom del sensor: </string>
-	<string name="snMeasure">Valor: </string>
-	<string name="snMaxLoad">Valor màxim: </string>
-	<string name="snSensivity">Sensibilitat: </string>
+	<string name="snSensorName">Sensor Name: </string>
+	<string name="snMeasure">Value: </string>
+	<string name="snMaxLoad">Max Value: </string>
+	<string name="snSensivity">Sensibility: </string>
 	<string name="snOffSet">OffSet: </string>
 	<string name="snAlarmAt">Alarma a: </string>
-	<string name="snLastTare">Última tara: </string>	
-	<string name="snBtn">Gràfic </string>
+	<string name="snLastTare">Last tara: </string>	
+	<string name="snBtn">Graph </string>
+	
+	<!-- Maps List Net -->
+	<string name="netList">Net List</string>
 
 </resources>
