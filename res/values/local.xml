@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- Google MAP API Key -->
-	<string name="google_map_api_key_debug">0n1J0u-XX9Hj_3_F0JLJlG-ZNjvMMBOF-w7nYuw</string>
+	<string name="google_map_api_key_debug">0Q6y-3HjMma1ZzA449KDZtzResPtOHCqe512wpA</string>
 	
 	<!-- ID Session (watch http://viuterrassa.com/Android/login.php?user=a&pass=a) -->
 	<!-- No longer used
     <string name="idSession">1323903600</string> -->
     
     <!-- Server http://viuterrassa.com/Android/ o http://192.168.0.195/Android/ -->
-    <string name="Servidor">http://192.168.0.195/Android/</string>
+    <string name="Servidor">http://viuterrassa.com/Android/</string>
 </resources>

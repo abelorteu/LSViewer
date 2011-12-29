@@ -97,7 +97,7 @@ public class SensorList extends GDActivity{
 	       
 	    }catch(JSONException e){
 	    	Log.e("log_tag", "Error parsing data "+e.toString());
-	        Toast.makeText(getApplicationContext(), "fail3", Toast.LENGTH_SHORT).show();
+	        //Toast.makeText(getApplicationContext(), "fail3", Toast.LENGTH_SHORT).show();
 	    }
 	    OnItemClickListener listener = new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position,long id) {

@@ -2,7 +2,7 @@
 <resources>
      
     <!--  Apps Titles -->
-	<string name="app_name"></string>
+	<string name="app_name">LSViewer</string>
 	<string name="app_Login">Login</string>
 	<string name="app_Home">Home</string>
 	<string name="app_Maps">Maps</string>
@@ -34,7 +34,9 @@
     <string name="mDialogSortir">Are you sure you want to exit?</string>
     <string name="mDialogSi">Yes</string>
     <string name="mDialogNo">No</string>
+    <string name="mDialogOK">OK</string>
     <string name="mDialogLogout">Are you sure you want to logout?</string>
+    <string name="mDialogErrorQRCode">There is no sensor with the serial number:</string>
     
     <!--  ImagesList Screen -->  
     <string name="selectImage">Select an image: </string>
