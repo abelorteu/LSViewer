@@ -6,8 +6,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,7 +29,7 @@ public class SensorInfo extends GDActivity {
 	private TextView txtOffSet;
 	private TextView txtAlarmAt;
 	private TextView txtLastTare;
-	
+	private Button btnGraph;
 	String session;
 	String sensor;
 	String activity;
@@ -79,6 +83,19 @@ public class SensorInfo extends GDActivity {
 	            txtAlarmAt.setText(json_data.getString("AlarmAt") + " " + json_data.getString("AlarmAtUnit"));
 	            txtLastTare = (TextView)findViewById(R.id.txtLastTare);
 	            txtLastTare.setText(json_data.getString("LastTare"));
+	            btnGraph= (Button)findViewById(R.id.btnGraph);
+	            btnGraph.setOnClickListener(new OnClickListener() {	
+	            	@Override
+	    			public void onClick(View v) {
+	    				Intent intent = new Intent(SensorInfo.this, Graph.class);
+	    				// Id session
+	    				Bundle bundle = new Bundle();
+	    				bundle.putString("session", session);
+	    				bundle.putString("sensor", sensor);
+	    				intent.putExtras(bundle);				
+	    				startActivity(intent);				
+	    			}
+	            });
             }catch(JSONException ex){
 	               Log.w("Error al carregar la informació", ex.toString());
 	               Toast.makeText(getApplicationContext(), "Error al carregar la informació", Toast.LENGTH_SHORT).show();
