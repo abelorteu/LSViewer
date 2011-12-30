@@ -117,7 +117,6 @@ public class NetList extends GDActivity {
 	}
 	
 	private void initActionBar() {
-
 		addActionBarItem(getActionBar()
                 .newActionBarItem(NormalActionBarItem.class)
 				.setDrawable(new ActionBarDrawable(this, R.drawable.ic_menu_home)), R.id.action_bar_view_home);
@@ -125,18 +124,15 @@ public class NetList extends GDActivity {
 	
 	@Override
 	public boolean onHandleActionBarItemClick(ActionBarItem item, int position) {
-		switch (item.getItemId()) {
-			
+		switch (item.getItemId()) {			
 			case R.id.action_bar_view_home:
 				Intent intent = new Intent(NetList.this, Home.class);							
 				Bundle bundle = new Bundle();
 				bundle.putString("session", session);
 				intent.putExtras(bundle);
 				startActivity(intent);
-				finish();
-				
-			break;
-		
+				finish();				
+			break;		
 			default:
 				return super.onHandleActionBarItemClick(item, position);
 		}

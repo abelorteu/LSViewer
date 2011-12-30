@@ -36,7 +36,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 //http://danlaho.wordpress.com/2011/10/31/login-usuario-simple-para-android/
 public class Login extends GDActivity {
-	InputStream is;
 	private String session;
 	private String user = "";
 	private String pass = "";
@@ -53,11 +52,10 @@ public class Login extends GDActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-		// Comprobamos si estan guardados los datos de acceso
+		// Comprovem si estan desades les dades d'acces
 		sp = getApplicationContext().getSharedPreferences("settings", 0);
 		boolean remembered = sp.getBoolean(REMEMBERED, false);
-		// Si no estan guardados
+		// Si no estan desades les recuperem de la pantalla
 		if(remembered == false){
 			setActionBarContentView(R.layout.login);
 			etUser = (EditText)this.findViewById(R.id.etUser);
@@ -73,14 +71,14 @@ public class Login extends GDActivity {
 					validar(user, pass);
 				}
 			}); 
-			
-		}else { // Si estan guardados
+
+		}else { // Si estan desades les recuperem de les preferencies
 			user = sp.getString(strUSER, user);
 			pass = sp.getString(strPASS, pass);
 			validar(user, pass);
 		} 
 	}
-	
+
 	private boolean validar(String username, String pass){
 
 		String Servidor= this.getResources().getString(R.string.Servidor);
@@ -111,8 +109,9 @@ public class Login extends GDActivity {
 					if(session.equals("0")){
 						Toast.makeText(Login.this, "L'usuari o la contrasenya són incorrectes!", Toast.LENGTH_LONG).show();
 					}else{
+						// Si no estan desades però marquem ‘Remember password'
 						if(saveData == true){
-							//Obtenemos el editor de las preferencias para guardarlas
+							//Obtenim l'editor de preferencies per desar-ho
 							SharedPreferences.Editor editor = sp.edit();
 							editor.putString(strUSER, user);
 							editor.putString(strPASS, pass);
@@ -123,7 +122,6 @@ public class Login extends GDActivity {
 						Bundle bundle = new Bundle();
 						bundle.putString("session", session);
 						intent.putExtras(bundle);
-
 						startActivity(intent);
 						finish();
 					}

@@ -20,7 +20,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.widget.TextView;
 
 import greendroid.app.GDMapActivity;
 import greendroid.graphics.drawable.ActionBarDrawable;
@@ -31,7 +30,6 @@ import greendroid.widget.NormalActionBarItem;
 
 public class MapsList extends GDMapActivity {
 	
-	private TextView tvName;
 	private MapView mapView;
 	private MapController controlMap = null;
 	ServerConnection sc;	
@@ -51,14 +49,11 @@ public class MapsList extends GDMapActivity {
 	        Bundle bundle = getIntent().getExtras();
 	        session = bundle.getString("session");	
 	        
-	        tvName = (TextView)findViewById(R.id.tvNom);
 	        mapView = (MapView) findViewById(R.id.mapview);
 	        mapView.setBuiltInZoomControls(true);
 	        
 	        controlMap = mapView.getController();
 	        	        
-	        tvName.setText(getResources().getString(R.string.netList));	        
-	        
 	        // Server Connection and convert response to string 	
 			sc = new ServerConnection(this);		
 			String params = getResources().getString(R.string.llistatXarxes) + "?session=" + session;
