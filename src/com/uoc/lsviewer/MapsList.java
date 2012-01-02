@@ -32,9 +32,9 @@ public class MapsList extends GDMapActivity {
 	
 	private MapView mapView;
 	private MapController controlMap = null;
-	ServerConnection sc;	
-	BasicItemizedOverlay itemizedOverlay;
-	String session;
+	private ServerConnection sc;	
+	private BasicItemizedOverlay itemizedOverlay;
+	private String session;
 		
 	private static final int[] PRESSED_STATE = {
 	        android.R.attr.state_pressed
@@ -51,7 +51,6 @@ public class MapsList extends GDMapActivity {
 	        
 	        mapView = (MapView) findViewById(R.id.mapview);
 	        mapView.setBuiltInZoomControls(true);
-	        
 	        controlMap = mapView.getController();
 	        	        
 	        // Server Connection and convert response to string 	
@@ -68,14 +67,10 @@ public class MapsList extends GDMapActivity {
 		    	prepareDraw();	    	
 		    	
 		        for(int i = 0; i < jArray.length(); i++){	        	
-		               JSONObject json_data = jArray.getJSONObject(i);
-		               		               
+		               JSONObject json_data = jArray.getJSONObject(i);		               		               
 		               itemNet = new OverlayItem(new GeoPoint((int)(json_data.getDouble("Lat") * 1E6), (int)(json_data.getDouble("Lon") * 1E6)), json_data.getString("Nom"), null);
 		               itemizedOverlay.addOverlay(itemNet);
-	            
-		              //Toast.makeText(getApplicationContext(), "pass3", Toast.LENGTH_SHORT).show();
-		         }	       
-		     
+		         }	       		     
 		        mapView.getOverlays().clear();
 		        mapView.getOverlays().add(itemizedOverlay);
 		        
@@ -85,9 +80,7 @@ public class MapsList extends GDMapActivity {
 		       
 		    }catch(JSONException e){
 		    	Log.e("log_tag", "Error parsing data "+e.toString());
-		        //Toast.makeText(getApplicationContext(), "fail3", Toast.LENGTH_SHORT).show();
-		    }			
-	        
+		    }				        
 	        controlMap.setZoom(8);                        
 	 }
 	
@@ -111,8 +104,7 @@ public class MapsList extends GDMapActivity {
        	        
         ColorStateList pinCsl = new ColorStateList(states, colors);
         ColorStateList dotCsl = new ColorStateList(states, colors);
-        itemizedOverlay = new BasicItemizedOverlay(new MapPinDrawable(r, pinCsl, dotCsl));
-               		
+        itemizedOverlay = new BasicItemizedOverlay(new MapPinDrawable(r, pinCsl, dotCsl));               		
 	}
 	
 	private class BasicItemizedOverlay extends ItemizedOverlay<OverlayItem> {
@@ -139,8 +131,7 @@ public class MapsList extends GDMapActivity {
         }
 
         @Override
-        protected boolean onTap(int index) {
-        	
+        protected boolean onTap(int index) {        	
        		Intent intent = new Intent(MapsList.this, ImagesNet.class);
        		Bundle bundle = new Bundle();
        		bundle.putString("session", session);

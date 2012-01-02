@@ -29,7 +29,6 @@ public class Home extends GDActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setActionBarContentView(R.layout.home);
-		//initActionBar();
 
 		btnList = (Button)findViewById(R.id.btnList);
 		btnMapa = (Button)findViewById(R.id.btnMap);
@@ -38,8 +37,6 @@ public class Home extends GDActivity {
 
 		Bundle bundle = getIntent().getExtras();
 		session = bundle.getString("session");		
-
-		//Toast.makeText(Home.this, bundle.getString("session"), Toast.LENGTH_LONG).show();
 
 		// Llistat de xarxes
 		btnList.setOnClickListener(new OnClickListener() {			
@@ -87,7 +84,7 @@ public class Home extends GDActivity {
 			}
 		});		
 	}
-	
+
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		switch(requestCode) {
 			case IntentIntegrator.REQUEST_CODE: {
@@ -121,55 +118,49 @@ public class Home extends GDActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		AlertDialog.Builder builder;
 		switch (item.getItemId()) {
-		case R.id.m_opcions:
-
-			return true;
-		case R.id.m_sortir:
-
-			builder = new AlertDialog.Builder(this);
-			builder.setMessage(R.string.mDialogSortir)
-			.setCancelable(false)
-			.setPositiveButton(R.string.mDialogSi, new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int id) {
-					Home.this.finish();
-				}
-			})
-			.setNegativeButton(R.string.mDialogNo, new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int id) {
-					dialog.cancel();
-				}
-			});
-			AlertDialog alert1 = builder.create();	        	
-			alert1.show();
-
-			return true;
-		case R.id.m_tancar_sessio:
-			builder = new AlertDialog.Builder(this);
-			builder.setMessage(R.string.mDialogLogout)
-			.setCancelable(false)
-			.setPositiveButton(R.string.mDialogSi, new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int id) {
-					SharedPreferences sp = getApplicationContext().getSharedPreferences("settings", 0);
-					//Obtenemos el editor de las preferencias.
-					SharedPreferences.Editor editor = sp.edit();
-					editor.putBoolean(REMEMBERED, false);
-					editor.putString(strUSER, "");
-					editor.putString(strPASS, "");
-					editor.commit();
-					Home.this.finish();
-				}
-			})
-			.setNegativeButton(R.string.mDialogNo, new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int id) {
-					dialog.cancel();
-				}
-			});
-			AlertDialog alert2 = builder.create();	        	
-			alert2.show();        	
-
-			return true;
-		default:
-			return super.onOptionsItemSelected(item);
+			case R.id.m_sortir:	
+				builder = new AlertDialog.Builder(this);
+				builder.setMessage(R.string.mDialogSortir)
+				.setCancelable(false)
+				.setPositiveButton(R.string.mDialogSi, new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						Home.this.finish();
+					}
+				})
+				.setNegativeButton(R.string.mDialogNo, new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						dialog.cancel();
+					}
+				});
+				AlertDialog alert1 = builder.create();	        	
+				alert1.show();
+				return true;	
+			case R.id.m_tancar_sessio:
+				builder = new AlertDialog.Builder(this);
+				builder.setMessage(R.string.mDialogLogout)
+				.setCancelable(false)
+				.setPositiveButton(R.string.mDialogSi, new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						SharedPreferences sp = getApplicationContext().getSharedPreferences("settings", 0);
+						//Obtenim  l'editor de les preferencies
+						SharedPreferences.Editor editor = sp.edit();
+						editor.putBoolean(REMEMBERED, false);
+						editor.putString(strUSER, "");
+						editor.putString(strPASS, "");
+						editor.commit();
+						Home.this.finish();
+					}
+				})
+				.setNegativeButton(R.string.mDialogNo, new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						dialog.cancel();
+					}
+				});
+				AlertDialog alert2 = builder.create();	        	
+				alert2.show();
+				return true;	
+			default:
+				return super.onOptionsItemSelected(item);
 		}
 	}
 }

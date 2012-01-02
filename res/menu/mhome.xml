@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-	<item android:id="@+id/m_opcions" android:title="@string/mOpcions"
-      android:icon="@drawable/ic_menu_opcions"></item>	
 	<item android:id="@+id/m_sortir" android:title="@string/mSortir"
       android:icon="@drawable/ic_menu_sortir"></item>	
 	<item android:id="@+id/m_tancar_sessio" android:title="@string/mTancarSessio"
