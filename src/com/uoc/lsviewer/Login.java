@@ -192,5 +192,4 @@ public class Login extends GDActivity {
 		}
 		return "";
 	}
-
 }

@@ -161,7 +161,9 @@ public class MapsList extends GDMapActivity {
 	}
 	
 	private void initActionBar() {
-
+		addActionBarItem(getActionBar()
+                .newActionBarItem(NormalActionBarItem.class)
+				.setDrawable(new ActionBarDrawable(this, R.drawable.ic_action_bar_list)), R.id.action_bar_list);
 		addActionBarItem(getActionBar()
                 .newActionBarItem(NormalActionBarItem.class)
 				.setDrawable(new ActionBarDrawable(this, R.drawable.ic_menu_home)), R.id.action_bar_view_home);
@@ -170,17 +172,22 @@ public class MapsList extends GDMapActivity {
 	@Override
 	public boolean onHandleActionBarItemClick(ActionBarItem item, int position) {
 		switch (item.getItemId()) {
-			
+			case R.id.action_bar_list:
+				Intent intent2 = new Intent(MapsList.this, NetList.class);							
+				Bundle bundle2 = new Bundle();
+				bundle2.putString("session", session);
+				intent2.putExtras(bundle2);
+				startActivity(intent2);
+				finish();				
+			break;
 			case R.id.action_bar_view_home:
 				Intent intent = new Intent(MapsList.this, Home.class);							
 				Bundle bundle = new Bundle();
 				bundle.putString("session", session);
 				intent.putExtras(bundle);
 				startActivity(intent);
-				finish();
-				
-			break;
-		
+				finish();				
+			break;		
 			default:
 				return super.onHandleActionBarItemClick(item, position);
 		}
