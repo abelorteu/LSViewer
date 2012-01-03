@@ -42,8 +42,7 @@ public class URLImageAdapter extends BaseAdapter {
 	// Constructor
 	public URLImageAdapter(Context c, Object previousList, String[] iURLs) {
 
-		myContext = c;
-		
+		myContext = c;		
 		imageURLs = iURLs;
 		
 		// get our thumbnail generation task ready to execute
@@ -64,7 +63,6 @@ public class URLImageAdapter extends BaseAdapter {
 
 		// initialize array
 		images = new Image[imageURLs.length];
-
 		for(int i = 0, j = imageURLs.length; i < j; i++) {
 			images[i] = new Image();
 			images[i].url = imageURLs[i];
@@ -92,7 +90,6 @@ public class URLImageAdapter extends BaseAdapter {
 		return images[position].url;
 	}
 
-
 	@Override
 	/**
 	 * Getter: return resource ID of the item at the current position
@@ -100,7 +97,6 @@ public class URLImageAdapter extends BaseAdapter {
 	public long getItemId(int position) {
 		return position;
 	}
-
 	
 	/**
 	 * Getter: return generated data
@@ -113,11 +109,9 @@ public class URLImageAdapter extends BaseAdapter {
 			thumbnailGen.cancel(true);
 
 		}
-
 		// return generated thumbs
 		return images;
 	}
-
 
 	/**
 	 * Create a new ImageView when requested, filling it with a 
@@ -126,43 +120,32 @@ public class URLImageAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 
-		ImageView imgView;
-		
+		ImageView imgView;		
 		// pull the cached data for the image assigned to this position
 		Image cached = images[position];
 
 		// can we recycle an old view?
 		if(convertView == null) {
-
 			// no view to recycle; create a new view
 			imgView = new ImageView(myContext);
 			imgView.setLayoutParams(new GridView.LayoutParams(100,100));
-
-		} else {
-	
+		} else {	
 			// recycle an old view (it might have old thumbs in it!)
-			imgView = (ImageView) convertView;
-	
+			imgView = (ImageView) convertView;	
 		}
 
 		// do we have a thumb stored in cache?
-		if(cached.thumb == null) {
-			
+		if(cached.thumb == null) {			
 			// no cached thumb, so let's set the view as blank
 			imgView.setImageResource(R.drawable.ic_menu_image);		
 			imgView.setScaleType(ScaleType.CENTER);
-
 		} else {
-
 			// yes, cached thumb! use that image
 			imgView.setScaleType(ScaleType.FIT_CENTER);
 			imgView.setImageBitmap(cached.thumb);
 		}
-
-
 		return imgView;
 	}
-
 	
 	/**
 	 * Notify the adapter that our data has changed so it can
@@ -171,7 +154,6 @@ public class URLImageAdapter extends BaseAdapter {
 	private void cacheUpdated() {
 		this.notifyDataSetChanged();
 	}
-
 
 	/**
 	 * Download and return a thumb specified by url, subsampling 
@@ -187,22 +169,17 @@ public class URLImageAdapter extends BaseAdapter {
 		opts.inSampleSize = 4;
 
 		try {
-
 			// open a connection to the URL
 			// Note: pay attention to permissions in the Manifest file!
 			URL u = new URL(url);
 			URLConnection c = u.openConnection();
-			c.connect();
-			
+			c.connect();			
 			// read data
 			BufferedInputStream stream = new BufferedInputStream(c.getInputStream());
-
 			// decode the data, subsampling along the way
 			thumb = BitmapFactory.decodeStream(stream, null, opts);
-
 			// close the stream
 			stream.close();
-
 		} catch (MalformedURLException e) {
 			Log.e("Threads03", "malformed url: " + url);
 		} catch (IOException e) {
@@ -221,9 +198,7 @@ public class URLImageAdapter extends BaseAdapter {
 		 * passed to this method. This method is run in a background task.
 		 */
 		@Override
-		protected Void doInBackground(Image... cache) {
-
-			
+		protected Void doInBackground(Image... cache) {			
 			// define the options for our bitmap subsampling 
 			BitmapFactory.Options opts = new BitmapFactory.Options();
 			opts.inSampleSize = 4;
@@ -245,11 +220,9 @@ public class URLImageAdapter extends BaseAdapter {
 
 				// some unit of work has been completed, update the UI
 				publishProgress();
-			}
-			
+			}			
 			return null;
 		}
-
 
 		/**
 		 * Update the UI thread when requested by publishProgress()

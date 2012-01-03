@@ -69,7 +69,8 @@ public class MapsList extends GDMapActivity {
 		        for(int i = 0; i < jArray.length(); i++){	        	
 		               JSONObject json_data = jArray.getJSONObject(i);		               		               
 		               itemNet = new OverlayItem(new GeoPoint((int)(json_data.getDouble("Lat") * 1E6), (int)(json_data.getDouble("Lon") * 1E6)), json_data.getString("Nom"), null);
-		               itemizedOverlay.addOverlay(itemNet);
+		               int idXarxa = json_data.getInt("IdXarxa");
+		               itemizedOverlay.addOverlay(idXarxa, itemNet);
 		         }	       		     
 		        mapView.getOverlays().clear();
 		        mapView.getOverlays().add(itemizedOverlay);
@@ -115,8 +116,8 @@ public class MapsList extends GDMapActivity {
             super(boundCenterBottom(defaultMarker));
         }
 
-        public void addOverlay(OverlayItem overlay) {
-            mOverlays.add(overlay);
+        public void addOverlay(int index, OverlayItem overlay) {
+            mOverlays.add(index, overlay);
             populate();
         }
 
