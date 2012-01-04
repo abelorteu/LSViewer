@@ -11,5 +11,6 @@
 	<string name="llistaSensorsImatge">getLlistaSensorsImatges.php</string>
 	<string name="sensorInfo">getSensorInfo.php</string>
 	<string name="valorsGrafic">getValorsGrafic.php</string>
+	<string name="Help">Help.php</string>
     
 </resources>
