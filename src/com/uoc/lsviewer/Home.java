@@ -78,8 +78,11 @@ public class Home extends GDActivity {
 		btnHelp.setOnClickListener(new OnClickListener() {			
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(Home.this, Help.class);				
-				startActivity(intent);
+				Intent intent = new Intent(Home.this, Help.class);		
+				Bundle bundle = new Bundle();
+				bundle.putString("session", session);
+				intent.putExtras(bundle);				
+				startActivity(intent);	
 				finish();
 			}
 		});		

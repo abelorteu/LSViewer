@@ -1,13 +1,18 @@
 package com.uoc.lsviewer;
 
 import greendroid.app.GDActivity;
+import greendroid.graphics.drawable.ActionBarDrawable;
+import greendroid.widget.ActionBarItem;
+import greendroid.widget.NormalActionBarItem;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,27 +23,35 @@ import android.widget.Toast;
 public class Graph extends GDActivity {
 //http://android-coding.blogspot.com/2011/10/embeded-google-chart-in-webview.html
 	  
-	 WebView embeddedWebView;
-	 ServerConnection sc;	
-	 String Web = "http://chart.apis.google.com/chart?chxt=x,y&chs=300x300&cht=lc&chco=FF0000&chls=2,4,0&chm=o,FF0000,0,-2,6&chf=c,s,D1D0D0|bg,s,D1D0D0";
-	 String embeddedWeb;
-	 String session;
-	 String sensor;
-	 String valorsData;
-	 String valors;
-	 String TipusGrafic="0";
-	 String[] NomTipusGrafic = new String[]{"Sensor strain (V)","Excitation power (V)","Counter (cnts)"};
-	 
-	 
+	 private WebView embeddedWebView;
+	 private ServerConnection sc;	
+	 private String Web = "http://chart.apis.google.com/chart?chxt=x,y&chs=300x300&cht=lc&chco=FF0000&chls=2,4,0&chm=o,FF0000,0,-2,6&chf=c,s,D1D0D0|bg,s,D1D0D0";
+	 private String session;
+	 private String sensor;
+	 private String activity;
+	 private String idXarxa;
+	 private String nomXarxa;
+	 private String idIMG;
+	 private String url;
+	 private String valorsData;
+	 private String valors;
+	 private String[] NomTipusGrafic = new String[]{"Sensor strain (V)","Excitation power (V)","Counter (cnts)"};	 
 	 private TextView txtTitol;
+	 
 	   /** Called when the activity is first created. */
 	   @Override
 	   public void onCreate(Bundle savedInstanceState) {
 	       super.onCreate(savedInstanceState);
 	       Bundle bundle = getIntent().getExtras();
 		   session = bundle.getString("session");
-	       sensor = bundle.getString("sensor");	       
+	       sensor = bundle.getString("sensor");	    
+	       activity = bundle.getString("activity");
+	       idXarxa = bundle.getString("idXarxa");
+		   nomXarxa = bundle.getString("nomXarxa");		    
+		   idIMG = bundle.getString("idIMG");			
+		   url = bundle.getString("url");			
 	       setActionBarContentView(R.layout.graph);
+	       initActionBar();
 	       Spinner cmbOpcions = (Spinner) findViewById(R.id.CmbOpcions);
 	       ArrayAdapter<String> adaptador =
 	               new ArrayAdapter<String>(this,
@@ -124,5 +137,48 @@ public class Graph extends GDActivity {
 		   }
 	   }
 	   
+		@Override
+		public boolean onKeyDown(int keyCode, KeyEvent event) {
+		    if (keyCode == KeyEvent.KEYCODE_BACK) {
+		    	Log.d(this.getClass().getName(), "back button pressed");
+		    	Intent intent = new Intent(Graph.this, SensorInfo.class);							
+				Bundle bundle = new Bundle();
+				bundle.putString("session", session);
+				bundle.putString("sensor", sensor);
+			    bundle.putString("activity", activity);
+				bundle.putString("idXarxa", idXarxa);
+			    bundle.putString("nomXarxa", nomXarxa);	
+			    bundle.putString("idIMG", idIMG);
+			    bundle.putString("url", url);
+				intent.putExtras(bundle);
+				startActivity(intent);
+				finish();
+		        return true;
+		    }
+		    return super.onKeyDown(keyCode, event);
+		}
+		
+		private void initActionBar() {
+			addActionBarItem(getActionBar()
+	                .newActionBarItem(NormalActionBarItem.class)
+					.setDrawable(new ActionBarDrawable(this, R.drawable.ic_menu_home)), R.id.action_bar_view_home);		
+		}
+		
+		@Override
+		public boolean onHandleActionBarItemClick(ActionBarItem item, int position) {
+			switch (item.getItemId()) {
+				case R.id.action_bar_view_home:
+					Intent intent = new Intent(Graph.this, Home.class);							
+					Bundle bundle = new Bundle();
+					bundle.putString("session", session);
+					intent.putExtras(bundle);
+					startActivity(intent);
+					finish();				
+				break;				
+				default:
+					return super.onHandleActionBarItemClick(item, position);
+			}
+			return true;
+		}	   
 }
 

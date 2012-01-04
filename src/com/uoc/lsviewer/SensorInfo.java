@@ -130,8 +130,14 @@ public class SensorInfo extends GDActivity {
 		    				Bundle bundle = new Bundle();
 		    				bundle.putString("session", session);
 		    				bundle.putString("sensor", sensor);
+		    				bundle.putString("activity", activity);
+		    				bundle.putString("idXarxa", idXarxa);
+		    				bundle.putString("nomXarxa", nomXarxa);
+		    				bundle.putString("idIMG", idIMG);
+		    				bundle.putString("url", url);
 		    				intent.putExtras(bundle);				
-		    				startActivity(intent);				
+		    				startActivity(intent);		
+		    				finish();
 		    			}
 		            });
 	            }
@@ -139,11 +145,9 @@ public class SensorInfo extends GDActivity {
 	               Log.w("Error al carregar la informació", ex.toString());
 	               Toast.makeText(getApplicationContext(), "Error al carregar la informació", Toast.LENGTH_SHORT).show();
 	         }
-
 	}
 	
 	private void initActionBar() {
-
 		addActionBarItem(getActionBar()
                 .newActionBarItem(NormalActionBarItem.class)
 				.setDrawable(new ActionBarDrawable(this, R.drawable.ic_menu_home)), R.id.action_bar_view_home);
@@ -151,18 +155,15 @@ public class SensorInfo extends GDActivity {
 	
 	@Override
 	public boolean onHandleActionBarItemClick(ActionBarItem item, int position) {
-		switch (item.getItemId()) {
-			
+		switch (item.getItemId()) {			
 			case R.id.action_bar_view_home:
 				Intent intent = new Intent(SensorInfo.this, Home.class);							
 				Bundle bundle = new Bundle();
 				bundle.putString("session", session);
 				intent.putExtras(bundle);
 				startActivity(intent);
-				finish();
-				
-			break;
-		
+				finish();				
+			break;		
 			default:
 				return super.onHandleActionBarItemClick(item, position);
 		}
@@ -173,17 +174,14 @@ public class SensorInfo extends GDActivity {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 	    if (keyCode == KeyEvent.KEYCODE_BACK) {
 	    	Log.d(this.getClass().getName(), "back button pressed");
-
 	    	if(activity.compareTo("QRCode") == 0) {
 	    		Intent intent = new Intent(SensorInfo.this, Home.class);							
 				Bundle bundle = new Bundle();
 				bundle.putString("session", session);
 				intent.putExtras(bundle);
 				startActivity(intent);
-				finish();
-	    		
+				finish();	    		
 	    	} else if(activity.compareTo("ImageSensors") == 0){
-	    		
 	    		Intent intent = new Intent(SensorInfo.this, ImageSensors.class);
 	    		Bundle bundle = new Bundle();
 	    		bundle.putString("session", session);
@@ -192,8 +190,7 @@ public class SensorInfo extends GDActivity {
 	    		bundle.putString("url", url);
 	    		intent.putExtras(bundle);
 	    		startActivity(intent);
-	    		finish();
-	    		
+	    		finish();	    		
 	    	} else {
 	    		Intent intent = new Intent(SensorInfo.this, SensorList.class);	
 	          	Bundle bundle = new Bundle();
@@ -203,11 +200,9 @@ public class SensorInfo extends GDActivity {
 				intent.putExtras(bundle);
 				startActivity(intent);
 				finish();
-	    	}
-	    	
+			}	    	
 	        return true;
 	    }
 	    return super.onKeyDown(keyCode, event);
 	}
-
 }
